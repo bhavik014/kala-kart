@@ -446,6 +446,26 @@ async def get_presentation():
             return HTMLResponse(content=f.read())
     raise HTTPException(status_code=404, detail="Presentation not found")
 
+@app.get("/presentation/sih-2026", response_class=HTMLResponse)
+async def get_sih_2026_presentation():
+    path = os.path.join(BASE_DIR, "presentation", "sih_2026_submission.html")
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    raise HTTPException(status_code=404, detail="SIH 2026 Presentation not found")
+
+@app.get("/presentation/download-pdf")
+async def download_sih_pdf():
+    pdf_path = os.path.join(BASE_DIR, "presentation", "kala_kart_sih_2026_presentation.pdf")
+    if os.path.exists(pdf_path):
+        return FileResponse(
+            pdf_path,
+            media_type="application/pdf",
+            filename="Kala_Kart_SIH_2026_Idea_Presentation.pdf"
+        )
+    raise HTTPException(status_code=404, detail="PDF not found")
+
+
 
 # ==============================================================================
 # 🇮🇳 SOVEREIGN AI CATALOGING ENGINE (MEITY BHASHINI & COMPUTER VISION PIPELINE)
