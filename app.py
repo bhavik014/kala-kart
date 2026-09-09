@@ -418,6 +418,14 @@ PRODUCTS_DB = [
 async def get_index(request: Request):
     return templates.TemplateResponse(request=request, name="index.html", context={"products": database.get_all_products()})
 
+@app.get("/presentation", response_class=HTMLResponse)
+async def get_presentation():
+    presentation_path = os.path.join(BASE_DIR, "presentation", "index.html")
+    if os.path.exists(presentation_path):
+        with open(presentation_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    raise HTTPException(status_code=404, detail="Presentation not found")
+
 
 # ==============================================================================
 # 🇮🇳 SOVEREIGN AI CATALOGING ENGINE (MEITY BHASHINI & COMPUTER VISION PIPELINE)
