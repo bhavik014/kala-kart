@@ -822,7 +822,7 @@ async def generate_catalog(
                     with open(saved_audio_path, "wb") as f_aud:
                         f_aud.write(audio_bytes)
                     product_audio_url = f"/static/audio/{saved_audio_name}"
-                    print(f"✓ Preserved user's authentic recorded voice: {saved_audio_path} ({len(audio_bytes)} bytes)")
+                    print(f"[AUTH-VOICE] Preserved user authentic recorded voice: {saved_audio_path} ({len(audio_bytes)} bytes)")
             except Exception as aud_err:
                 print(f"Audio upload note: {aud_err}")
         
