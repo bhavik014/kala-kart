@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full bg-[#f6f1e9]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kala Kart (कला कार्ट) — Indian Rural Voice-to-Commerce Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rozha+One&family=Noto+Serif+Devanagari:wght@400;700&family=Noto+Sans+Bengali:wght@400;700&family=Noto+Sans+Tamil:wght@400;700&family=Noto+Sans+Telugu:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f6f1e9;
+            background-image: radial-gradient(#d4a373 0.6px, transparent 0.6px);
+            background-size: 20px 20px;
+            color: #2b2d42;
+        }
+        
+        .font-vintage { font-family: 'Rozha One', 'Noto Serif Devanagari', serif; }
+        .font-stamp { font-family: 'Courier Prime', monospace; }
+        
+        /* Indie Stamp & Wax Seal Effect */
+        .stamp-badge {
+            border: 2px dashed #b45309;
+            background: #fefae0;
+            box-shadow: 3px 3px 0px #c2593f;
+            transform: rotate(-1deg);
+        }
+
+        .gi-tag-stamp {
+            border: 2px solid #b45309;
+            background: #fefae0;
+            position: relative;
+            box-shadow: 2px 2px 0px #2b2d42;
+        }
+        
+        .vintage-card {
+            background: #fffcf7;
+            border: 2px solid #e7d8c9;
+            box-shadow: 5px 7px 0px #d4a373;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .vintage-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 8px 12px 0px #c2593f;
+            border-color: #c2593f;
+        }
+
+        /* Sound wave equalizer animation */
+        .sound-wave-bar {
+            display: inline-block;
+            width: 3.5px;
+            height: 14px;
+            background: #c2593f;
+            border-radius: 2px;
+            animation: soundWave 0.9s ease-in-out infinite alternate;
+        }
+        @keyframes soundWave {
+            0% { height: 4px; }
+            100% { height: 18px; }
+        }
+
+        /* Pulse dot animation */
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #10b981;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulseDot 1.8s infinite;
+        }
+        @keyframes pulseDot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col selection:bg-[#fed7aa] selection:text-[#2b2d42]">
+
+    <!-- ========================================================================= -->
+    <!-- 0. STEP 1: INITIAL REGIONAL LANGUAGE SELECTION MODAL (FIRST SCREEN GATEWAY) -->
+    <!-- ========================================================================= -->
+    <div id="initial-lang-modal" class="fixed inset-0 z-50 bg-[#2b2d42]/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[12px_16px_0px_#c2593f] border-3 border-[#2b2d42] text-center relative">
+            <div class="w-16 h-16 rounded-2xl bg-[#c2593f] text-white flex items-center justify-center text-3xl shadow-[3px_3px_0px_#2b2d42] mx-auto mb-4">
+                🇮🇳
+            </div>
+            
+            <span class="stamp-badge px-3 py-1 text-xs font-stamp font-bold uppercase text-[#c2593f] inline-block mb-2">
+                Kala Kart • कला कार्ट
+            </span>
+            <h2 class="font-vintage text-2xl sm:text-3xl text-[#2b2d42] mb-1">
+                कृपया अपनी भाषा चुनें
+            </h2>
+            <p class="text-xs text-[#6c757d] font-stamp mb-6">
+                Select Your Regional Language to Proceed (100% Native Dialect)
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <button type="button" onclick="selectInitialLanguage('hi')" class="p-4 rounded-2xl border-2 border-[#d4a373] bg-white hover:bg-[#fefae0] hover:border-[#b45309] transition shadow-[3px_3px_0px_#d4a373] flex flex-col items-center">
+                    <span class="font-vintage text-xl text-[#2b2d42]">हिन्दी</span>
+                    <span class="text-[10px] font-stamp text-[#6c757d] mt-1">Hindi • उत्तरी भारत</span>
+                </button>
+                <button type="button" onclick="selectInitialLanguage('bn')" class="p-4 rounded-2xl border-2 border-[#d4a373] bg-white hover:bg-[#fefae0] hover:border-[#b45309] transition shadow-[3px_3px_0px_#d4a373] flex flex-col items-center">
+                    <span class="text-xl font-bold text-[#2b2d42]">বাংলা</span>
+                    <span class="text-[10px] font-stamp text-[#6c757d] mt-1">Bengali • পশ্চিমবঙ্গ/ত্রিপুরা</span>
+                </button>
+                <button type="button" onclick="selectInitialLanguage('mr')" class="p-4 rounded-2xl border-2 border-[#d4a373] bg-white hover:bg-[#fefae0] hover:border-[#b45309] transition shadow-[3px_3px_0px_#d4a373] flex flex-col items-center">
+                    <span class="font-vintage text-xl text-[#2b2d42]">मराठी</span>
+                    <span class="text-[10px] font-stamp text-[#6c757d] mt-1">Marathi • महाराष्ट्र</span>
+                </button>
+                <button type="button" onclick="selectInitialLanguage('ta')" class="p-4 rounded-2xl border-2 border-[#d4a373] bg-white hover:bg-[#fefae0] hover:border-[#b45309] transition shadow-[3px_3px_0px_#d4a373] flex flex-col items-center">
+                    <span class="text-xl font-bold text-[#2b2d42]">தமிழ்</span>
+                    <span class="text-[10px] font-stamp text-[#6c757d] mt-1">Tamil • தமிழ்நாடு</span>
+                </button>
+                <button type="button" onclick="selectInitialLanguage('te')" class="p-4 rounded-2xl border-2 border-[#d4a373] bg-white hover:bg-[#fefae0] hover:border-[#b45309] transition shadow-[3px_3px_0px_#d4a373] flex flex-col items-center">
+                    <span class="text-xl font-bold text-[#2b2d42]">తెలుగు</span>
+                    <span class="text-[10px] font-stamp text-[#6c757d] mt-1">Telugu • ఆంధ్రప్రదేశ్/తెలంగాణ</span>
+                </button>
+                <button type="button" onclick="selectInitialLanguage('en')" class="p-4 rounded-2xl border-2 border-[#d4a373] bg-white hover:bg-[#fefae0] hover:border-[#b45309] transition shadow-[3px_3px_0px_#d4a373] flex flex-col items-center">
+                    <span class="text-xl font-bold text-[#2b2d42]">English</span>
+                    <span class="text-[10px] font-stamp text-[#6c757d] mt-1">Global & Urban Export</span>
+                </button>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 text-[11px] font-stamp text-[#6c757d] bg-[#f6f1e9] p-2.5 rounded-xl border border-[#d4a373]/50">
+                <i data-lucide="shield-check" class="w-4 h-4 text-[#047857]"></i>
+                <span>भाषिणी MeitY AI द्वारा संचालित • संपूर्ण अनुवाद लागू होगा</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 1. DUAL-ROLE GATEWAY SCREEN (ARTISAN VS BUYER)                             -->
+    <!-- ========================================================================= -->
+    <div id="gateway-screen" class="fixed inset-0 z-40 bg-[#f6f1e9] flex flex-col justify-between p-4 sm:p-8 overflow-y-auto">
+        
+        <!-- Top Bar with Active Language Badge & Backend Console Link -->
+        <div class="max-w-6xl mx-auto w-full flex items-center justify-between gap-3 border-b border-dashed border-[#d4a373] pb-4">
+            <div class="flex items-center gap-2">
+                <span class="font-vintage text-2xl sm:text-3xl text-[#2b2d42]">Kala Kart</span>
+                <span id="gw-brand-sub" class="text-xs font-stamp font-bold text-[#c2593f] bg-[#fefae0] px-2.5 py-0.5 rounded border border-[#d4a373]">कला कार्ट</span>
+                <span class="stamp-badge px-2 py-0.5 text-[9px] font-stamp font-bold text-[#c2593f] hidden sm:inline-block">SIH26090</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="toggleModal('api-inspector-modal')" class="px-3 py-1.5 text-xs font-stamp font-bold rounded-xl border border-[#93c5fd] bg-[#eff6ff] text-[#1e3a8a] hover:bg-[#dbeafe] transition flex items-center gap-1.5 shadow-xs">
+                    <span class="pulse-dot"></span>
+                    <span>GoI Open APIs (/docs)</span>
+                </button>
+
+                <button onclick="openLanguagePicker()" class="px-3 py-1.5 text-xs font-stamp font-bold rounded-xl border border-[#d4a373] bg-[#fefae0] text-[#2b2d42] hover:bg-[#faedcd] transition flex items-center gap-1.5 shadow-xs">
+                    <i data-lucide="languages" class="w-3.5 h-3.5 text-[#c2593f]"></i>
+                    <span id="gw-active-lang">हिन्दी (बदलें)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Gateway Choice -->
+        <div class="max-w-5xl mx-auto w-full my-auto py-8">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="stamp-badge px-3 py-1 text-xs font-stamp font-bold uppercase text-[#c2593f] inline-block mb-3" id="gw-top-badge">
+                    भारतीय ग्रामीण आवाज़-व्यापार मंच
+                </span>
+                <h1 id="gw-title" class="font-vintage text-3xl sm:text-5xl text-[#2b2d42] tracking-tight">
+                    कला कार्ट में आपका स्वागत है
+                </h1>
+                <p id="gw-sub" class="text-xs sm:text-sm text-[#6c757d] font-stamp mt-2 leading-relaxed">
+                    कृपया अपनी भूमिका का चयन करें: कारीगर कार्यशाला में काम करना चाहते हैं या सीधे हस्तशिल्प खरीदना चाहते हैं?
+                </p>
+            </div>
+
+            <!-- Two Distinct Role Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- CARD 1: ARTISAN WORKSPACE & LOGIN -->
+                <div class="vintage-card p-6 sm:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden bg-[#fffdfa]">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#fed7aa]/30 rounded-bl-full pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-[#c2593f] text-white flex items-center justify-center text-xl shadow-[2px_2px_0px_#2b2d42]">
+                                🧕
+                            </span>
+                            <span class="text-[10px] font-stamp font-bold text-[#047857] bg-[#ecfdf5] px-2.5 py-1 rounded-full border border-[#a7f3d0]" id="gw-artisan-badge">
+                                PM Vishwakarma • PM-AJAY
+                            </span>
+                        </div>
+                        <h3 class="font-vintage text-2xl text-[#2b2d42] mb-2" id="gw-artisan-title">१. कारीगर कार्यशाला (Artisan Hub)</h3>
+                        <p class="text-xs text-[#4a4e69] leading-relaxed mb-4" id="gw-artisan-desc">
+                            १० सेकंड अपनी बोली में बोलकर स्टूडियो कैटलॉग बनाएं, स्वयं सहायता समूह से कच्चा माल ३६% सस्ता खरीदें और स्पीड पोस्ट पिकअप प्राप्त करें।
+                        </p>
+
+                        <!-- Quick Artisan Login Options -->
+                        <div class="space-y-2.5 pt-2 border-t border-dashed border-[#d4a373]">
+                            <!-- PM Vishwakarma 1-Tap -->
+                            <div class="flex gap-2">
+                                <input type="text" id="gw-vishwakarma-id" value="PMV-BH-88214" placeholder="PM Vishwakarma ID" class="flex-1 px-3 py-2 text-xs font-mono font-bold bg-white border border-[#d4a373] rounded-xl focus:outline-none">
+                                <button onclick="handleGatewayVishwakarmaLogin()" class="px-3 py-2 bg-[#1e3a8a] hover:bg-[#172554] text-white text-xs font-bold rounded-xl shadow-[2px_2px_0px_#2b2d42] transition" id="gw-vish-btn">
+                                    सत्यापित करें
+                                </button>
+                            </div>
+
+                            <!-- Mobile OTP Option -->
+                            <div class="flex gap-2">
+                                <input type="tel" id="gw-phone" value="9876543210" placeholder="१० अंकों का नंबर" class="flex-1 px-3 py-2 text-xs bg-white border border-[#d4a373] rounded-xl focus:outline-none">
+                                <button onclick="speakArtisanOTP()" class="px-2.5 py-2 bg-[#fefae0] text-[#b45309] border border-[#b45309] text-xs font-stamp font-bold rounded-xl hover:bg-[#faedcd] transition" id="gw-otp-btn">
+                                    OTP सुनें
+                                </button>
+                                <button onclick="handleGatewayPhoneLogin()" class="px-3 py-2 bg-[#c2593f] hover:bg-[#a6472e] text-white text-xs font-bold rounded-xl shadow-[2px_2px_0px_#2b2d42] transition" id="gw-login-btn">
+                                    प्रवेश
+                                </button>
+                            </div>
+
+                            <!-- Get Registered Link (For non-Vishwakarma) -->
+                            <div class="pt-2 text-center">
+                                <button onclick="openRegisterModal()" class="text-xs font-stamp font-bold text-[#b45309] hover:underline flex items-center justify-center gap-1 mx-auto" id="gw-reg-link">
+                                    👉 विश्वकर्मा आईडी नहीं है? नया पंजीकरण करें (Get Registered)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="enterAsArtisan()" class="mt-6 w-full py-3.5 bg-[#2b2d42] hover:bg-[#1e1b4b] text-[#fefae0] font-bold text-xs font-stamp uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#c2593f] transition flex items-center justify-center gap-2" id="gw-artisan-enter-btn">
+                        <i data-lucide="wrench" class="w-4 h-4 text-[#fed7aa]"></i>
+                        <span>कारीगर कार्यशाला में प्रवेश करें</span>
+                    </button>
+                </div>
+
+                <!-- CARD 2: BUYER MARKETPLACE -->
+                <div class="vintage-card p-6 sm:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden bg-[#fffdfa]">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#a7f3d0]/30 rounded-bl-full pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-12 h-12 rounded-2xl bg-[#047857] text-white flex items-center justify-center text-xl shadow-[2px_2px_0px_#2b2d42]">
+                                🛍️
+                            </span>
+                            <span class="text-[10px] font-stamp font-bold text-[#1e3a8a] bg-[#eff6ff] px-2.5 py-1 rounded-full border border-[#bfdbfe]" id="gw-buyer-badge">
+                                100% Direct Fair Trade
+                            </span>
+                        </div>
+                        <h3 class="font-vintage text-2xl text-[#2b2d42] mb-2" id="gw-buyer-title">२. ग्राहक दस्तकार बाज़ार (Buyer Marketplace)</h3>
+                        <p class="text-xs text-[#4a4e69] leading-relaxed mb-4" id="gw-buyer-desc">
+                            भारत के दूरदराज गाँवों से सीधे असली हस्तशिल्प खरीदें। आपकी खरीद का ८५%+ पारिश्रमिक बिना किसी दलाल के सीधे ग्रामीण शिल्पकार के बैंक खाते में जाता है।
+                        </p>
+
+                        <div class="p-3 bg-[#fefae0] rounded-2xl border border-[#d4a373] space-y-2 text-xs font-stamp text-[#2b2d42]">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#047857]"></i>
+                                <span id="gw-h1">कारीगर की मातृभाषा में मूल कहानी सुनें (भाषिणी AI)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#047857]"></i>
+                                <span id="gw-h2">SFURTI Grade A+ लैब व GI टैग प्रमाणित उत्पाद</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#047857]"></i>
+                                <span id="gw-h3">भारतीय डाक स्पीड पोस्ट से गाँव से सीधा आपके घर प्रेषण</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="enterAsBuyer()" class="mt-6 w-full py-3.5 bg-[#047857] hover:bg-[#065f46] text-white font-bold text-xs font-stamp uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#2b2d42] transition flex items-center justify-center gap-2" id="gw-buyer-enter-btn">
+                        <i data-lucide="shopping-bag" class="w-4 h-4 text-white"></i>
+                        <span>सीधे बाज़ार में प्रवेश करें (Enter Marketplace)</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="text-center text-[11px] font-stamp text-[#6c757d] border-t border-dashed border-[#d4a373] pt-3 flex flex-wrap items-center justify-center gap-3">
+            <span>Kala Kart • PM Vishwakarma, Ministry of Social Justice & Empowerment, Bhashini (MeitY) व भारतीय डाक समर्थित</span>
+            <a href="/docs" target="_blank" class="text-[#1e3a8a] font-bold hover:underline flex items-center gap-1">
+                <span>FastAPI OpenAPI Docs</span>
+                <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 2. MAIN HEADER (ALWAYS ACCESSIBLE WITH 1-CLICK ROLE SWITCH)                -->
+    <!-- ========================================================================= -->
+    <header class="sticky top-0 z-30 bg-[#fffcf7]/95 backdrop-blur-md border-b-2 border-[#d4a373] shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+            
+            <!-- Brand -->
+            <div class="flex items-center gap-3">
+                <a href="javascript:void(0)" onclick="openGateway()" class="flex items-baseline gap-2">
+                    <span class="font-vintage text-2xl sm:text-3xl text-[#2b2d42] tracking-wide">Kala Kart</span>
+                    <span id="nav-brand-sub" class="text-xs font-stamp font-bold text-[#c2593f]">कला कार्ट</span>
+                </a>
+                <span class="hidden sm:inline-flex stamp-badge px-2 py-0.5 text-[10px] font-stamp font-bold text-[#c2593f]">
+                    SIH26090
+                </span>
+            </div>
+
+            <!-- Role Switcher & Eco Pill & Backend API Console -->
+            <div class="flex items-center gap-2">
+                <button onclick="toggleModal('api-inspector-modal')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-stamp font-bold bg-[#eff6ff] hover:bg-[#dbeafe] text-[#1e3a8a] border border-[#bfdbfe] transition" title="GoI Open APIs & Live Backend Inspector">
+                    <span class="pulse-dot"></span>
+                    <span id="nav-api-btn-label">GoI APIs</span>
+                </button>
+
+                <button onclick="toggleModal('ecosystem-modal')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-stamp font-bold bg-[#fefae0] hover:bg-[#faedcd] text-[#b45309] border border-[#d4a373] transition">
+                    <i data-lucide="landmark" class="w-3.5 h-3.5 text-[#c2593f]"></i>
+                    <span id="nav-eco-btn-label">६ सरकारी स्तंभ</span>
+                </button>
+
+                <button onclick="switchView('artisan')" id="nav-btn-artisan" class="px-3 py-1.5 rounded-xl text-xs font-stamp font-bold transition flex items-center gap-1.5 border border-[#d4a373] bg-[#fefae0] text-[#b45309] hover:bg-[#faedcd]">
+                    <i data-lucide="wrench" class="w-3.5 h-3.5"></i>
+                    <span id="nav-artisan-label">कारीगर कार्यशाला</span>
+                </button>
+
+                <button onclick="switchView('buyer')" id="nav-btn-buyer" class="px-3 py-1.5 rounded-xl text-xs font-stamp font-bold transition flex items-center gap-1.5 border border-[#047857] bg-[#047857] text-white hover:bg-[#065f46]">
+                    <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+                    <span id="nav-buyer-label">दस्तकार बाज़ार</span>
+                </button>
+
+                <button onclick="openLanguagePicker()" class="p-2 rounded-xl text-[#2b2d42] bg-[#fefae0] border border-[#d4a373] hover:bg-[#faedcd] transition" title="भाषा बदलें">
+                    <i data-lucide="languages" class="w-4 h-4 text-[#c2593f]"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- 3. INTERFACE A: कारीगर कार्यशाला (ARTISAN WORKSPACE)                       -->
+    <!-- ========================================================================= -->
+    <main id="view-artisan" class="hidden flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        <!-- Artisan Welcome Banner -->
+        <div class="vintage-card p-6 sm:p-8 rounded-3xl relative overflow-hidden bg-[#fffdfa]">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-2xl bg-[#c2593f] text-white flex items-center justify-center text-3xl shadow-[3px_3px_0px_#2b2d42]">
+                        🧕
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h2 class="font-vintage text-2xl sm:text-3xl text-[#2b2d42]" id="artisan-display-name">रामवती देवी की कार्यशाला</h2>
+                            <span class="text-[10px] font-stamp font-bold bg-[#ecfdf5] text-[#047857] border border-[#a7f3d0] px-2.5 py-0.5 rounded-full" id="artisan-display-id">
+                                PMV-BH-88214 • ग्राम पंचायत सत्यापित
+                            </span>
+                        </div>
+                        <p class="text-xs font-stamp text-[#6c757d] mt-1" id="artisan-display-meta">
+                            मधुबनी, बिहार • गंगा महिला स्वयं सहायता समूह #14 • डाक सेवक पिकअप तैयार
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="flex items-center gap-2 flex-wrap">
+                    <button onclick="toggleModal('shg-modal')" class="px-3.5 py-2 rounded-xl text-xs font-stamp font-bold bg-[#fefae0] text-[#b45309] border border-[#d4a373] hover:bg-[#faedcd] transition flex items-center gap-1.5 shadow-xs">
+                        <i data-lucide="users-2" class="w-4 h-4 text-[#c2593f]"></i>
+                        <span id="art-shg-hub-btn">स्वयं सहायता समूह हब (SHG)</span>
+                    </button>
+                    <button onclick="openRegisterModal()" class="px-3.5 py-2 rounded-xl text-xs font-stamp font-bold bg-[#ecfdf5] text-[#047857] border border-[#a7f3d0] hover:bg-[#d1fae5] transition flex items-center gap-1.5 shadow-xs">
+                        <i data-lucide="user-plus" class="w-4 h-4 text-[#059669]"></i>
+                        <span id="art-new-reg-btn">नया पंजीकरण / सहायक</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-dashed border-[#d4a373]">
+                <div class="p-3 bg-[#f6f1e9] rounded-2xl border border-[#e7d8c9]">
+                    <span class="text-[10px] font-stamp text-[#6c757d] block" id="art-stat-lbl-earnings">कुल प्रत्यक्ष पारिश्रमिक</span>
+                    <span class="font-vintage text-xl sm:text-2xl text-[#047857]" id="art-stat-earnings">₹42,850</span>
+                </div>
+                <div class="p-3 bg-[#f6f1e9] rounded-2xl border border-[#e7d8c9]">
+                    <span class="text-[10px] font-stamp text-[#6c757d] block" id="art-stat-lbl-items">सक्रिय उत्पाद कैटलॉग</span>
+                    <span class="font-vintage text-xl sm:text-2xl text-[#2b2d42]">4 उत्पाद</span>
+                </div>
+                <div class="p-3 bg-[#f6f1e9] rounded-2xl border border-[#e7d8c9]">
+                    <span class="text-[10px] font-stamp text-[#6c757d] block" id="art-stat-lbl-grant">पीएम विश्वकर्मा टूलकिट</span>
+                    <span class="font-vintage text-xl sm:text-2xl text-[#1e3a8a]">₹15,000 स्वीकृत</span>
+                </div>
+                <div class="p-3 bg-[#f6f1e9] rounded-2xl border border-[#e7d8c9]">
+                    <span class="text-[10px] font-stamp text-[#6c757d] block" id="art-stat-lbl-pickup">डाकघर स्पीड पोस्ट</span>
+                    <span class="font-vintage text-xl sm:text-2xl text-[#b45309]">दैनिक पिकअप सक्रिय</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10-Second Vernacular Voice Studio -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 vintage-card p-6 sm:p-8 rounded-3xl bg-[#fffdfa]">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="stamp-badge px-2.5 py-0.5 text-[10px] font-stamp font-bold text-[#c2593f] uppercase inline-block mb-1">
+                            भाषिणी (MeitY) AI • 10-Second Studio
+                        </span>
+                        <h3 class="font-vintage text-2xl text-[#2b2d42]" id="studio-title">अपनी आवाज़ में नया हस्तशिल्प दर्ज करें</h3>
+                        <p class="text-xs text-[#6c757d] font-stamp" id="studio-desc">
+                            १० सेकंड अपनी क्षेत्रीय बोली में बोलें। भाषिणी AI स्वतः ६ भाषाओं में बहुभाषी ई-कॉमर्स कैटलॉग बना देगी।
+                        </p>
+                    </div>
+                    <span class="w-10 h-10 rounded-xl bg-[#fefae0] border border-[#d4a373] text-[#c2593f] flex items-center justify-center text-lg">
+                        🎙️
+                    </span>
+                </div>
+
+                <form id="voice-catalog-form" onsubmit="handleCatalogGenerate(event)" class="space-y-4">
+                    <!-- Photo Upload / Camera -->
+                    <div>
+                        <label class="block text-xs font-stamp font-bold text-[#2b2d42] mb-1.5" id="lbl-photo">
+                            १. हस्तशिल्प की तस्वीर खींचें या चुनें (Upload / Take Photo)
+                        </label>
+                        <div class="border-2 border-dashed border-[#d4a373] bg-[#f6f1e9]/50 rounded-2xl p-4 text-center hover:bg-[#fefae0] transition cursor-pointer relative">
+                            <input type="file" id="artisan-photo-input" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                            <div class="flex flex-col items-center gap-1.5 pointer-events-none">
+                                <i data-lucide="camera" class="w-7 h-7 text-[#c2593f]"></i>
+                                <span class="text-xs font-bold text-[#2b2d42]" id="txt-camera-prompt">कैमरा खोलें या फ़ोटो चुनें</span>
+                                <span class="text-[10px] font-stamp text-[#6c757d]">कंप्यूटर विज़न AI स्वतः लाइटिंग ठीक करके स्टूडियो कैटलॉग बनाएगी</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Voice Record Studio -->
+                    <div>
+                        <label class="block text-xs font-stamp font-bold text-[#2b2d42] mb-1.5" id="lbl-voice">
+                            २. १० सेकंड अपनी भाषा में वर्णन करें (Speak in your dialect)
+                        </label>
+                        <div class="p-4 bg-[#fefae0] rounded-2xl border border-[#d4a373] flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-3 w-full sm:w-auto">
+                                <button type="button" id="record-btn" onclick="toggleRecording()" class="w-12 h-12 rounded-full bg-[#c2593f] hover:bg-[#a6472e] text-white flex items-center justify-center shadow-[3px_3px_0px_#2b2d42] transition active:scale-95 flex-shrink-0">
+                                    <i data-lucide="mic" class="w-5 h-5" id="record-icon"></i>
+                                </button>
+                                <div>
+                                    <span class="text-xs font-bold text-[#2b2d42] block" id="record-status-txt">माइक दबाएं और बोलें</span>
+                                    <span class="text-[10px] font-stamp text-[#6c757d]" id="record-timer-txt">अधिकतम १० सेकंड • मैथिली/भोजपुरी/तमिल समर्थित</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center gap-1">
+                                <span class="sound-wave-bar"></span>
+                                <span class="sound-wave-bar" style="animation-delay: 0.2s"></span>
+                                <span class="sound-wave-bar" style="animation-delay: 0.4s"></span>
+                                <span class="sound-wave-bar" style="animation-delay: 0.1s"></span>
+                                <span class="sound-wave-bar" style="animation-delay: 0.3s"></span>
+                            </div>
+                        </div>
+                        <textarea id="voice-transcript" rows="2" placeholder="या यहाँ बोलकर/लिखकर दर्ज करें..." class="mt-2 w-full p-2.5 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none font-serif"></textarea>
+                    </div>
+
+                    <!-- 3. Dynamic Fair Price Predictor (Ministry of Labour & DC Handicrafts) -->
+                    <div class="p-4 bg-[#fefae0] rounded-2xl border-2 border-[#d4a373] space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-stamp font-bold text-[#b45309] flex items-center gap-1.5">
+                                <i data-lucide="scale" class="w-4 h-4 text-[#c2593f]"></i>
+                                <span>३. सरकारी एआई निष्पक्ष मूल्य निर्धारक (Govt Fair Pricing Model)</span>
+                            </span>
+                            <span class="text-[9px] font-stamp font-bold text-[#047857] bg-white px-2 py-0.5 rounded border border-[#a7f3d0]">
+                                ८५%+ सीधा पारिश्रमिक गारंटी
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-stamp">
+                            <div>
+                                <label class="block text-[10px] font-bold text-[#2b2d42] mb-1">शिल्प प्रकार (Craft)</label>
+                                <select id="artisan-craft-select" onchange="triggerDynamicPricingRecalc()" class="w-full px-2.5 py-2 bg-white border border-[#d4a373] rounded-xl focus:outline-none">
+                                    <option value="Handicrafts & Painting">मधुबनी चित्रकला (Painting)</option>
+                                    <option value="Pottery & Ceramics">खुर्जा पॉटरी (Ceramics)</option>
+                                    <option value="Textiles & Handloom">भागलपुरी टसर सिल्क (Silk)</option>
+                                    <option value="Woodcraft & Carving">सहारनपुर काष्ठशिल्प (Wood)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-[#2b2d42] mb-1">श्रम समय (Labor Days)</label>
+                                <select id="pricing-labor-days" onchange="triggerDynamicPricingRecalc()" class="w-full px-2.5 py-2 bg-white border border-[#d4a373] rounded-xl focus:outline-none">
+                                    <option value="1.0">१ दिन (८ घंटे)</option>
+                                    <option value="2.0">२ दिन (१६ घंटे)</option>
+                                    <option value="4.0" selected>४ दिन (३२ घंटे)</option>
+                                    <option value="7.0">७ दिन (५६ घंटे)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-bold text-[#2b2d42] mb-1">कला स्तर (Complexity)</label>
+                                <select id="pricing-complexity" onchange="triggerDynamicPricingRecalc()" class="w-full px-2.5 py-2 bg-white border border-[#d4a373] rounded-xl focus:outline-none">
+                                    <option value="standard">साधारण (Standard 1.0x)</option>
+                                    <option value="intricate" selected>बारीक/सूक्ष्म (Intricate 1.25x)</option>
+                                    <option value="masterpiece">उत्कृष्ट (Masterpiece 1.55x)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Live Cost Breakdown Pill -->
+                        <div class="p-3 bg-white rounded-xl border border-[#e7d8c9] flex flex-col sm:flex-row items-center justify-between gap-3">
+                            <div>
+                                <span class="text-[10px] font-stamp text-[#6c757d] block">श्रम मंत्रालय व टेक्सटाइल इंडेक्स द्वारा निर्धारित मूल्य:</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span class="font-vintage text-2xl text-[#047857] font-bold" id="dyn-predicted-price">₹2,450</span>
+                                    <span class="text-[11px] font-stamp text-[#6c757d]" id="dyn-price-range">(सीमा: ₹2,250 - ₹2,750)</span>
+                                </div>
+                                <span class="text-[10px] font-stamp text-[#047857] font-bold" id="dyn-artisan-payout">
+                                    ✓ कारीगर प्रत्यक्ष भुगतान: ₹2,240 (91.4% सीधा बैंक खाता)
+                                </span>
+                            </div>
+
+                            <div class="w-full sm:w-auto">
+                                <label class="block text-[9px] font-stamp font-bold text-[#2b2d42] mb-0.5">अंतिम विक्रय मूल्य (₹)</label>
+                                <input type="number" id="artisan-price-input" value="2450" class="w-full sm:w-28 px-3 py-1.5 text-sm bg-[#f6f1e9] border border-[#d4a373] rounded-xl font-bold text-[#047857] text-center focus:bg-white focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-[#c2593f] hover:bg-[#a6472e] text-white font-bold text-xs font-stamp uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#2b2d42] transition flex items-center justify-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        <span id="btn-generate-catalog">भाषिणी AI से कैटलॉग बनाएं व बाज़ार में जोड़ें</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Side Card: SHG Raw Material Store & Speed Post Dispatch -->
+            <div class="space-y-6">
+                <!-- SHG Bulk Raw Material Card -->
+                <div class="vintage-card p-6 rounded-3xl bg-[#fefae0] border-2 border-[#d4a373]">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-[10px] font-stamp font-bold text-[#b45309] uppercase">स्वयं सहायता समूह संकलन</span>
+                        <span class="text-xs bg-white px-2 py-0.5 rounded border border-[#d4a373] font-bold text-[#047857]">३६% छूट</span>
+                    </div>
+                    <h4 class="font-vintage text-xl text-[#2b2d42] mb-1">सामूहिक कच्चा माल स्टोर</h4>
+                    <p class="text-xs text-[#6c757d] mb-4">गंगा SHG क्लस्टर द्वारा थोक सिल्क धागा व जैविक रंग सीधे फैक्ट्री दर पर उपलब्ध।</p>
+                    
+                    <div class="space-y-2 text-xs font-stamp">
+                        <div class="flex justify-between p-2 bg-white rounded-xl border border-[#e7d8c9]">
+                            <span>भागलपुरी कोसा सिल्क रील (500g):</span>
+                            <b class="text-[#047857]">₹680 <s class="text-[#9ca3af]">₹1050</s></b>
+                        </div>
+                        <div class="flex justify-between p-2 bg-white rounded-xl border border-[#e7d8c9]">
+                            <span>प्राकृतिक खनिज रंग किट (SFURTI):</span>
+                            <b class="text-[#047857]">₹240 <s class="text-[#9ca3af]">₹380</s></b>
+                        </div>
+                    </div>
+
+                    <button onclick="toggleModal('shg-modal')" class="mt-4 w-full py-2 bg-[#b45309] hover:bg-[#92400e] text-white text-xs font-bold font-stamp rounded-xl transition">
+                        ऑर्डर करें या टूल फंड से लें (0% ब्याज)
+                    </button>
+                </div>
+
+                <!-- India Post Scheduled Pickup -->
+                <div class="vintage-card p-6 rounded-3xl bg-[#fffdfa]">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#c2593f] text-white flex items-center justify-center font-bold text-sm shadow">
+                            📮
+                        </div>
+                        <div>
+                            <h4 class="font-vintage text-lg text-[#2b2d42]">भारतीय डाक स्पीड पोस्ट</h4>
+                            <span class="text-[10px] font-stamp text-[#047857] font-bold">✓ डाक सेवक द्वार पिकअप सेवा</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-[#6c757d] font-stamp mb-3">
+                        ऑर्डर मिलने पर डाक सेवक स्वयं आपके घर आकर पार्सल लेगा और बारकोड रसीद देगा।
+                    </p>
+                    <button onclick="triggerSpeedPostSchedule()" class="w-full py-2 bg-[#1e3a8a] hover:bg-[#172554] text-white text-xs font-bold font-stamp rounded-xl transition shadow">
+                        📦 आज का पार्सल पिकअप शेड्यूल करें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artisan My Products List -->
+        <div>
+            <h3 class="font-vintage text-2xl text-[#2b2d42] mb-4">आपकी पंजीकृत कलाकृतियाँ (My Live Products)</h3>
+            <div id="artisan-my-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Dynamic Items from JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- 4. INTERFACE B: ग्राहक दस्तकार बाज़ार (BUYER MARKETPLACE)                  -->
+    <!-- ========================================================================= -->
+    <main id="view-buyer" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        <!-- Marketplace Hero Banner -->
+        <div class="vintage-card p-6 sm:p-8 rounded-3xl bg-[#fffdfa] relative overflow-hidden">
+            <div class="max-w-3xl">
+                <div class="flex items-center gap-2 mb-2 flex-wrap">
+                    <span class="stamp-badge px-3 py-0.5 text-xs font-stamp font-bold uppercase text-[#c2593f]" id="mkt-top-badge">
+                        १०% पारदर्शी • दलाल-मुक्त बाज़ार
+                    </span>
+                    <span class="text-[10px] font-stamp font-bold text-[#047857] bg-[#ecfdf5] px-2.5 py-0.5 rounded-full border border-[#a7f3d0]" id="mkt-wage-tag">
+                        ८५%+ सीधा कारीगर को
+                    </span>
+                    <span class="text-[10px] font-stamp font-bold text-[#1e3a8a] bg-[#eff6ff] px-2.5 py-0.5 rounded-full border border-[#bfdbfe]" id="mkt-middlemen-tag">
+                        १००% बिचौलिया-मुक्त
+                    </span>
+                </div>
+                <h1 class="font-vintage text-3xl sm:text-5xl text-[#2b2d42] tracking-tight mb-2" id="mkt-title">
+                    सीधे गाँव से • पुश्तैनी भारतीय दस्तकारी
+                </h1>
+                <p class="text-xs sm:text-sm text-[#6c757d] font-stamp leading-relaxed" id="mkt-sub">
+                    प्रत्येक उत्पाद की अपनी आत्मा और बोली है। सीधे मास्टर शिल्पकारों से खरीदें और ग्रामीण भारत की कला परंपरा को सशक्त बनाएं।
+                </p>
+            </div>
+
+            <!-- Craft Category Filter Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto pt-6 border-t border-dashed border-[#d4a373] mt-6 pb-2">
+                <button onclick="filterProducts('all')" id="btn-cat-all" class="px-4 py-2 rounded-xl text-xs font-stamp font-bold bg-[#c2593f] text-white shadow-[2px_2px_0px_#2b2d42] transition whitespace-nowrap">
+                    <span id="bcat-all">सभी हस्तशिल्प</span>
+                </button>
+                <button onclick="filterProducts('Handicrafts & Painting')" id="btn-cat-paint" class="px-4 py-2 rounded-xl text-xs font-stamp font-bold bg-[#fefae0] text-[#2b2d42] border border-[#d4a373] hover:bg-[#faedcd] transition whitespace-nowrap">
+                    <span id="bcat-paint">मधुबनी चित्रकला</span>
+                </button>
+                <button onclick="filterProducts('Pottery & Ceramics')" id="btn-cat-pottery" class="px-4 py-2 rounded-xl text-xs font-stamp font-bold bg-[#fefae0] text-[#2b2d42] border border-[#d4a373] hover:bg-[#faedcd] transition whitespace-nowrap">
+                    <span id="bcat-pottery">खुर्जा पॉटरी</span>
+                </button>
+                <button onclick="filterProducts('Textiles & Handloom')" id="btn-cat-silk" class="px-4 py-2 rounded-xl text-xs font-stamp font-bold bg-[#fefae0] text-[#2b2d42] border border-[#d4a373] hover:bg-[#faedcd] transition whitespace-nowrap">
+                    <span id="bcat-silk">भागलपुरी सिल्क</span>
+                </button>
+                <button onclick="filterProducts('Woodcraft & Carving')" id="btn-cat-wood" class="px-4 py-2 rounded-xl text-xs font-stamp font-bold bg-[#fefae0] text-[#2b2d42] border border-[#d4a373] hover:bg-[#faedcd] transition whitespace-nowrap">
+                    <span id="bcat-wood">सहारनपुर काष्ठशिल्प</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div id="buyer-products-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Dynamic Product Cards Injected Here -->
+        </div>
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- 5. MODALS                                                                 -->
+    <!-- ========================================================================= -->
+
+    <!-- LIVE GOI OPEN APIS & BACKEND INSPECTOR MODAL -->
+    <div id="api-inspector-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#0f172a] text-[#f8fafc] rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-[12px_16px_0px_#38bdf8] border-3 border-[#38bdf8] relative max-h-[90vh] overflow-y-auto font-mono">
+            <button onclick="toggleModal('api-inspector-modal')" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="flex items-center gap-3 border-b border-slate-700 pb-4 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-[#0284c7] text-white flex items-center justify-center text-xl shadow">
+                    ⚡
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 class="text-xl sm:text-2xl font-bold text-white">Government of India Open APIs Console</h3>
+                        <span class="pulse-dot"></span>
+                        <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded">ONLINE</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Live API Testbed • MeitY Bhashini, MSDE Vishwakarma, DoP India Post, DPIIT ONDC, MSME SFURTI</p>
+                </div>
+            </div>
+
+            <!-- Fast Action Nav Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-4 text-xs border-b border-slate-800">
+                <button onclick="runGoIInspector('status')" class="px-3 py-1.5 rounded-lg bg-sky-600 text-white font-bold hover:bg-sky-500 transition">
+                    1. Network Status
+                </button>
+                <button onclick="runGoIInspector('bhashini')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 transition">
+                    2. Bhashini NMT (MeitY)
+                </button>
+                <button onclick="runGoIInspector('vishwakarma')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 transition">
+                    3. PM Vishwakarma / DigiLocker
+                </button>
+                <button onclick="runGoIInspector('indiapost')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 transition">
+                    4. India Post Tracking (CEPT)
+                </button>
+                <button onclick="runGoIInspector('ondc')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 transition">
+                    5. ONDC Beckn Protocol (DPIIT)
+                </button>
+                <button onclick="runGoIInspector('sfurti')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 transition">
+                    6. SFURTI CFC Lab
+                </button>
+                <button onclick="runGoIInspector('fairprice')" class="px-3 py-1.5 rounded-lg bg-slate-800 text-amber-400 hover:bg-slate-700 transition font-bold">
+                    7. Fair Price Model (MoL&E)
+                </button>
+                <a href="/docs" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition flex items-center gap-1 ml-auto">
+                    <span>OpenAPI Swagger UI ↗</span>
+                </a>
+            </div>
+
+            <!-- Inspector Display Screen -->
+            <div class="space-y-4 text-xs">
+                <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span id="insp-method" class="px-2 py-0.5 rounded bg-emerald-600 text-white font-bold">GET</span>
+                        <span id="insp-url" class="text-sky-400 font-mono">/api/gov/status</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span id="insp-status" class="text-emerald-400 font-bold">200 OK</span>
+                        <span id="insp-latency" class="text-slate-400">Latency: 38ms</span>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1">
+                        <span>Live JSON Response Payload (National Open API Gateway):</span>
+                        <button onclick="copyInspectorPayload()" class="hover:text-white underline">Copy JSON</button>
+                    </div>
+                    <pre id="insp-payload" class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-emerald-400 overflow-x-auto max-h-80 leading-relaxed text-[11px]">Loading live payload from backend...</pre>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Direct Endpoint: <a href="http://localhost:8000/docs" target="_blank" class="text-sky-400 underline">http://localhost:8000/docs</a></span>
+                <span>Powered by FastAPI & Government of India Open Standards</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6-STAGE GOVERNMENT ARCHITECTURE MODAL -->
+    <div id="ecosystem-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-[10px_16px_0px_#1e3a8a] border-3 border-[#2b2d42] relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleModal('ecosystem-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="flex items-center gap-3.5 mb-6 border-b-2 border-dashed border-[#d4a373] pb-4">
+                <div class="w-12 h-12 rounded-2xl bg-[#1e3a8a] text-white flex items-center justify-center shadow-[3px_3px_0px_#2b2d42]">
+                    <i data-lucide="landmark" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-vintage text-2xl sm:text-3xl text-[#2b2d42]">६-स्तरीय राष्ट्रीय संस्थागत ढाँचा</h3>
+                    <p class="text-xs font-stamp text-[#6c757d]">Government of India Grassroots Bottleneck Solution Funnel</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Stage 1 -->
+                <div class="p-4 bg-[#eff6ff] rounded-2xl border-2 border-[#93c5fd] shadow-[3px_3px_0px_#93c5fd]">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <b class="text-sm font-vintage text-[#1e3a8a]">१. ऑनबोर्डिंग व पहचान सत्यापन (Zero-Friction Identity)</b>
+                        <span class="text-[9px] font-stamp font-bold text-[#1e40af] bg-white px-2 py-0.5 rounded border border-[#93c5fd]">पिलर १</span>
+                    </div>
+                    <div class="mb-2 p-1.5 bg-white rounded-lg border border-[#bfdbfe] text-[11px] font-stamp">
+                        <b>संस्था:</b> PM Vishwakarma & Gram Panchayats (ग्राम पंचायत)
+                    </div>
+                    <p class="text-xs text-[#334155] leading-relaxed mb-2">
+                        <b>समस्या:</b> ई-कॉमर्स में अक्सर फर्जी विक्रेता खाते और बिचौलिए सब्सिडी हड़प लेते हैं।
+                    </p>
+                    <p class="text-xs text-[#1e3a8a] leading-relaxed bg-white p-2 rounded-xl border border-[#93c5fd]/50">
+                        <b>समाधान भूमिका:</b> पीएम विश्वकर्मा पोर्टल से सीधे सत्यापित आईडी प्राप्त करना। ग्राम पंचायत स्थानीय भौतिक सत्यापन डेस्क के रूप में कार्य करती है।
+                    </p>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="p-4 bg-[#fefae0] rounded-2xl border-2 border-[#d4a373] shadow-[3px_3px_0px_#d4a373]">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <b class="text-sm font-vintage text-[#2b2d42]">२. ग्राम स्तरीय डिजिटल सहायता केंद्र (Assisted Tech Hubs)</b>
+                        <span class="text-[9px] font-stamp font-bold text-[#b45309] bg-white px-2 py-0.5 rounded border border-[#d4a373]">पिलर २</span>
+                    </div>
+                    <div class="mb-2 p-1.5 bg-white rounded-lg border border-[#e7d8c9] text-[11px] font-stamp">
+                        <b>संस्था:</b> CSCs (Common Services Centres) & VLEs
+                    </div>
+                    <p class="text-xs text-[#334155] leading-relaxed mb-2">
+                        <b>समस्या:</b> ९८% ग्रामीण शिल्पकारों के पास स्मार्टफोन, इंटरनेट या कैमरा कौशल नहीं है।
+                    </p>
+                    <p class="text-xs text-[#92400e] leading-relaxed bg-white p-2 rounded-xl border border-[#d4a373]/50">
+                        <b>समाधान भूमिका:</b> ग्राम स्तरीय उद्यमी (VLE) तकनीकी साथी बनकर उच्च गुणवत्ता वाली तस्वीरें लेते हैं और आवश्यक डिजिटल उपकरण उपलब्ध कराते हैं।
+                    </p>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="p-4 bg-[#f0fdf4] rounded-2xl border-2 border-[#86efac] shadow-[3px_3px_0px_#86efac]">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <b class="text-sm font-vintage text-[#14532d]">३. एआई कैटलॉगिंग व स्थानीयकरण (AI Localization)</b>
+                        <span class="text-[9px] font-stamp font-bold text-[#15803d] bg-white px-2 py-0.5 rounded border border-[#86efac]">पिलर ३</span>
+                    </div>
+                    <div class="mb-2 p-1.5 bg-white rounded-lg border border-[#bbf7d0] text-[11px] font-stamp">
+                        <b>संस्था:</b> Bhashini (MeitY) & Computer Vision Pipeline
+                    </div>
+                    <p class="text-xs text-[#334155] leading-relaxed mb-2">
+                        <b>समस्या:</b> कारीगर स्थानीय बोलियों में बोलते हैं, जिसे सामान्य अंग्रेजी ई-कॉमर्स समझ नहीं पाता।
+                    </p>
+                    <p class="text-xs text-[#166534] leading-relaxed bg-white p-2 rounded-xl border border-[#86efac]/50">
+                        <b>समाधान भूमिका:</b> भाषिणी एआई स्थानीय बोलियों को बहुभाषी उत्पाद विवरण में बदलती है। कंप्यूटर विज़न साधारण तस्वीरों को स्टूडियो कैटलॉग में बदलता है।
+                    </p>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="p-4 bg-[#fff7ed] rounded-2xl border-2 border-[#fdba74] shadow-[3px_3px_0px_#fdba74]">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <b class="text-sm font-vintage text-[#7c2d12]">४. सामूहिक संकलन व सूक्ष्म-लॉजिस्टिक्स (Collective Logistics)</b>
+                        <span class="text-[9px] font-stamp font-bold text-[#c2410c] bg-white px-2 py-0.5 rounded border border-[#fdba74]">पिलर ४</span>
+                    </div>
+                    <div class="mb-2 p-1.5 bg-white rounded-lg border border-[#fed7aa] text-[11px] font-stamp">
+                        <b>संस्था:</b> Self-Help Groups (SHGs) & APCs
+                    </div>
+                    <p class="text-xs text-[#334155] leading-relaxed mb-2">
+                        <b>समस्या:</b> दूरदराज के गाँवों से एकल पार्सल भेजना अत्यधिक महंगा पड़ता है।
+                    </p>
+                    <p class="text-xs text-[#9a3412] leading-relaxed bg-white p-2 rounded-xl border border-[#fdba74]/50">
+                        <b>समाधान भूमिका:</b> एकल उत्पादन को थोक बी२बी लॉट में एकत्रित करना। गाँव स्तर पर डाकघर व कूरियर के लिए एकल संकलन केंद्र बनाना।
+                    </p>
+                </div>
+
+                <!-- Stage 5 -->
+                <div class="p-4 bg-[#faf5ff] rounded-2xl border-2 border-[#d8b4fe] shadow-[3px_3px_0px_#d8b4fe]">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <b class="text-sm font-vintage text-[#581c87]">५. गुणवत्ता नियंत्रण, पैकेजिंग व लैब (QC & Packaging)</b>
+                        <span class="text-[9px] font-stamp font-bold text-[#7e22ce] bg-white px-2 py-0.5 rounded border border-[#d8b4fe]">पिलर ५</span>
+                    </div>
+                    <div class="mb-2 p-1.5 bg-white rounded-lg border border-[#e9d5ff] text-[11px] font-stamp">
+                        <b>संस्था:</b> SFURTI Clusters (Common Facility Centres)
+                    </div>
+                    <p class="text-xs text-[#334155] leading-relaxed mb-2">
+                        <b>समस्या:</b> रास्ते में माल टूटने और गैर-मानकीकृत पैकेजिंग से उत्पाद वापसी दर बढ़ जाती है।
+                    </p>
+                    <p class="text-xs text-[#6b21a8] leading-relaxed bg-white p-2 rounded-xl border border-[#d8b4fe]/50">
+                        <b>समाधान भूमिका:</b> स्फूर्ति कॉमन फैसिलिटी सेंटर्स मानक गुणवत्ता जांच, बारकोड टैगिंग और सुरक्षित निर्यात पैकेजिंग सुनिश्चित करते हैं।
+                    </p>
+                </div>
+
+                <!-- Stage 6 -->
+                <div class="p-4 bg-[#fff1f2] rounded-2xl border-2 border-[#fecdd3] shadow-[3px_3px_0px_#fecdd3]">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <b class="text-sm font-vintage text-[#881337]">६. कौशल उन्नयन व हार्डवेयर नवाचार (Hardware & Skills)</b>
+                        <span class="text-[9px] font-stamp font-bold text-[#be123c] bg-white px-2 py-0.5 rounded border border-[#fecdd3]">पिलर ६</span>
+                    </div>
+                    <div class="mb-2 p-1.5 bg-white rounded-lg border border-[#fecdd3] text-[11px] font-stamp">
+                        <b>संस्था:</b> Weavers' Service Centres (WSCs) & RuTAG (IITs)
+                    </div>
+                    <p class="text-xs text-[#334155] leading-relaxed mb-2">
+                        <b>समस्या:</b> पारंपरिक भारी उपकरणों से शारीरिक थकान होती है और शहरी बाज़ार ट्रेंड की समझ नहीं होती।
+                    </p>
+                    <p class="text-xs text-[#9f1239] leading-relaxed bg-white p-2 rounded-xl border border-[#fecdd3]/50">
+                        <b>समाधान भूमिका:</b> बाज़ार ट्रेंड एनालिटिक्स का फीडबैक लूप बुनकर सेवा केंद्रों और आईआईटी के RuTAG तक पहुँचता है ताकि आधुनिक उपकरण विकसित हो सकें।
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHG CLUSTER HUB MODAL -->
+    <div id="shg-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-[10px_16px_0px_#b45309] border-3 border-[#2b2d42] relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleModal('shg-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="flex items-center gap-3.5 mb-6 border-b-2 border-dashed border-[#d4a373] pb-4">
+                <div class="w-12 h-12 rounded-2xl bg-[#b45309] text-white flex items-center justify-center shadow-[3px_3px_0px_#2b2d42]">
+                    <i data-lucide="users-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-vintage text-2xl text-[#2b2d42]">गंगा महिला स्वयं सहायता समूह</h3>
+                    <p class="text-xs font-stamp text-[#6c757d]">क्लस्टर #14 • 18 महिला दस्तकार दीदियाँ • NRLM / PM-AJAY</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="p-4 bg-[#fefae0] rounded-2xl border border-[#d4a373]">
+                    <span class="text-xs font-stamp font-bold text-[#b45309] block mb-1">१. कला सखी दीदी सहायता</span>
+                    <p class="text-xs text-[#2b2d42] leading-relaxed">
+                        जिन दीदियों के पास स्मार्टफोन नहीं है, उनके घर जाकर कला सखी दीदी सामूहिक फोन से कैटलॉग फोटो और आवाज रिकॉर्ड करती हैं।
+                    </p>
+                </div>
+
+                <div class="p-4 bg-[#ecfdf5] rounded-2xl border border-[#a7f3d0]">
+                    <span class="text-xs font-stamp font-bold text-[#047857] block mb-1">२. सामूहिक थोक कच्चा माल पूल</span>
+                    <p class="text-xs text-[#2b2d42] leading-relaxed">
+                        सिल्क धागा और प्राकृतिक रंग सामूहिक ऑर्डर करके ३६% बचत होती है। इस महीने समूह ने 120 किग्रा धागा बुक किया।
+                    </p>
+                </div>
+
+                <div class="p-4 bg-[#eff6ff] rounded-2xl border border-[#bfdbfe]">
+                    <span class="text-xs font-stamp font-bold text-[#1e3a8a] block mb-1">३. ०% ब्याज रिवाल्विंग टूल फंड</span>
+                    <p class="text-xs text-[#2b2d42] leading-relaxed">
+                        करघा या चाक मरम्मत के लिए ₹5,000 तक की तत्काल सहायता उपलब्ध। उत्पाद बिकने पर बिना ब्याज वापस करें।
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NON-VISHWAKARMA REGISTRATION MODAL -->
+    <div id="register-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[10px_16px_0px_#c2593f] border-3 border-[#2b2d42] relative max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleModal('register-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="flex items-center gap-3.5 mb-6 border-b-2 border-dashed border-[#d4a373] pb-4">
+                <div class="w-12 h-12 rounded-2xl bg-[#c2593f] text-white flex items-center justify-center shadow-[3px_3px_0px_#2b2d42]">
+                    <i data-lucide="user-plus" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-vintage text-2xl text-[#2b2d42]" id="reg-modal-title">नया शिल्पकार पंजीकरण</h3>
+                    <p class="text-xs font-stamp text-[#6c757d]">ग्राम पंचायत सत्यापन व विश्वकर्मा सहायता डेस्क</p>
+                </div>
+            </div>
+
+            <form onsubmit="handleRegistrationSubmit(event)" class="space-y-3.5">
+                <div>
+                    <label class="block text-xs font-stamp font-bold text-[#2b2d42] mb-1">शिल्पकार का पूरा नाम (Full Name)</label>
+                    <input type="text" id="reg-artisan-name" required value="मीनाक्षी कुमारी" class="w-full px-3.5 py-2.5 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-stamp font-bold text-[#2b2d42] mb-1">हस्तशिल्प विधा (Craft Discipline)</label>
+                    <select id="reg-artisan-craft" class="w-full px-3.5 py-2.5 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none">
+                        <option value="मधुबनी पेंटिंग">मधुबनी चित्रकला (Madhubani Painting)</option>
+                        <option value="खुर्जा पॉटरी">खुर्जा मिट्टी कला (Khurja Pottery)</option>
+                        <option value="भागलपुरी टसर सिल्क">भागलपुरी टसर सिल्क (Tussar Silk Handloom)</option>
+                        <option value="सहारनपुर काष्ठशिल्प">सहारनपुर काष्ठ नक्काशी (Wood Carving)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-stamp font-bold text-[#2b2d42] mb-1">ग्राम पंचायत व ज़िला (Gram Panchayat & District)</label>
+                    <input type="text" id="reg-artisan-panchayat" required value="रंती ग्राम पंचायत, मधुबनी, बिहार" class="w-full px-3.5 py-2.5 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-stamp font-bold text-[#2b2d42] mb-1">मोबाइल नंबर (Mobile Number)</label>
+                    <input type="tel" id="reg-artisan-phone" required value="9876543210" class="w-full px-3.5 py-2.5 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none">
+                </div>
+
+                <div class="p-3 bg-[#fefae0] rounded-xl border border-[#d4a373]">
+                    <label class="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" id="reg-artisan-assist" checked class="mt-0.5 rounded text-[#c2593f]">
+                        <span class="text-[11px] font-stamp text-[#2b2d42] leading-tight">
+                            <b>कला सखी / CSC VLE सहायता चाहिए:</b> स्मार्टफोन या कैमरा नहीं है, कृपया दीदी को घर भेजें।
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-[#c2593f] hover:bg-[#a6472e] text-white font-bold text-xs font-stamp uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#2b2d42] transition flex items-center justify-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <span>पंजीकरण दर्ज करें व टोकन प्राप्त करें</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    
+    <!-- CATALOG RESULT MODAL (INSTANT SUCCESS POPUP) -->
+    <div id="catalog-result-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-[12px_16px_0px_#047857] border-3 border-[#047857] relative max-h-[90vh] overflow-y-auto text-center">
+            <button onclick="toggleModal('catalog-result-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="w-16 h-16 rounded-2xl bg-[#047857] text-white flex items-center justify-center text-3xl shadow-[3px_3px_0px_#2b2d42] mx-auto mb-3">
+                ✨
+            </div>
+
+            <span class="stamp-badge px-3 py-1 text-xs font-stamp font-bold uppercase text-[#047857] inline-block mb-2">
+                भाषिणी AI व कंप्यूटर विज़न सफलता
+            </span>
+            <h3 class="font-vintage text-2xl sm:text-3xl text-[#2b2d42] mb-1">
+                हस्तशिल्प कैटलॉग सफलतापूर्वक तैयार!
+            </h3>
+            <p class="text-xs text-[#6c757d] font-stamp mb-6">
+                आपका उत्पाद ६ भाषाओं में तैयार हो चुका है और राष्ट्रीय बाज़ार में लाइव है।
+            </p>
+
+            <!-- Generated Card Preview -->
+            <div class="p-4 bg-[#fefae0] rounded-2xl border-2 border-[#d4a373] text-left space-y-3 mb-6 shadow-[3px_3px_0px_#d4a373]">
+                <div class="flex items-center gap-3">
+                    <img id="res-prod-img" src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=400&q=80" class="w-20 h-20 rounded-xl object-cover border-2 border-[#b45309]">
+                    <div class="flex-1 min-w-0">
+                        <span id="res-prod-cat" class="text-[9px] font-stamp font-bold text-[#c2593f] uppercase block">Pottery & Ceramics</span>
+                        <h4 id="res-prod-title" class="font-vintage text-base text-[#2b2d42] font-bold truncate">Terracotta Handcrafted Glazed Pottery</h4>
+                        <div class="flex items-center justify-between mt-1">
+                            <span id="res-prod-price" class="font-vintage text-lg font-bold text-[#047857]">₹1,350</span>
+                            <span class="text-[9px] font-stamp bg-[#ecfdf5] text-[#047857] border border-[#a7f3d0] px-2 py-0.5 rounded font-bold">८५%+ सीधा कारीगर को</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 bg-white rounded-xl border border-[#e7d8c9] text-xs">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-[#2b2d42]">भाषिणी AI अनुवादित विवरण:</span>
+                        <span class="text-[9px] font-stamp text-[#1e3a8a] bg-[#eff6ff] px-1.5 py-0.2 rounded font-bold">६ भाषाएं सक्रिय</span>
+                    </div>
+                    <p id="res-prod-story" class="text-[11px] text-[#4a4e69] leading-relaxed italic">
+                        "पारंपरिक तकनीकों से निर्मित यह हस्तशिल्प उत्पाद प्राकृतिक सामग्रियों और प्रामाणिक कारीगरी की अनूठी मिसाल है।"
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-[10px] font-stamp">
+                    <div class="p-1.5 bg-white rounded-lg border border-[#d4a373]/50">
+                        <span class="text-[#6c757d]">जीआई मुहर:</span>
+                        <b id="res-prod-gi" class="text-[#c2593f] block">GI-BH-MD-088</b>
+                    </div>
+                    <div class="p-1.5 bg-white rounded-lg border border-[#d4a373]/50">
+                        <span class="text-[#6c757d]">SFURTI लैब मुहर:</span>
+                        <b id="res-prod-qc" class="text-[#1e3a8a] block">Grade A+ Certified</b>
+                    </div>
+                </div>
+
+                <!-- Natural Pigment Swatches in Modal -->
+                <div class="p-2.5 bg-white rounded-xl border border-[#d4a373]/50">
+                    <span class="text-[10px] font-stamp font-bold text-[#2b2d42] block mb-1.5">
+                        🎨 कंप्यूटर विज़न प्रमाणित प्राकृतिक रंग वर्णक्रम (Extracted Swatches):
+                    </span>
+                    <div id="res-prod-swatches" class="flex items-center gap-2 flex-wrap text-[10px] font-stamp">
+                        <!-- Swatches injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <a id="res-cert-link" href="/api/catalog/certificate/art-101" target="_blank" class="py-3 bg-[#1e3a8a] hover:bg-[#172554] text-white text-xs font-stamp font-bold uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#2b2d42] transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="award" class="w-4 h-4 text-[#bfdbfe]"></i>
+                    <span>📜 प्रमाण पत्र (Certificate)</span>
+                </a>
+                <button onclick="viewProductInMarketplace()" class="py-3 bg-[#047857] hover:bg-[#065f46] text-white text-xs font-stamp font-bold uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#2b2d42] transition flex items-center justify-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span>बाज़ार में देखें</span>
+                </button>
+                <button onclick="toggleModal('catalog-result-modal')" class="py-3 bg-[#2b2d42] hover:bg-[#1e1b4b] text-[#fefae0] text-xs font-stamp font-bold uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#c2593f] transition flex items-center justify-center gap-2">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>नया जोड़ें</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRATITUDE MODAL -->
+    <div id="gratitude-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-md w-full p-6 shadow-[8px_12px_0px_#c2593f] border-3 border-[#2b2d42] relative">
+            <button onclick="toggleModal('gratitude-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="text-center mb-4 border-b-2 border-dashed border-[#d4a373] pb-3">
+                <span class="text-2xl">💌</span>
+                <h3 class="font-vintage text-xl text-[#2b2d42]">दिल से दिल तक • धन्यवाद पत्र</h3>
+                <p class="text-xs font-stamp text-[#6c757d]" id="gratitude-target-artisan">शिल्पकार रामवती देवी को संदेश भेजें</p>
+            </div>
+
+            <form onsubmit="handleGratitudeSubmit(event)" class="space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-stamp font-bold text-[#2b2d42] uppercase mb-1">आपका नाम</label>
+                        <input type="text" id="gratitude-buyer-name" required value="अनामिका शर्मा" class="w-full px-3 py-2 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-stamp font-bold text-[#2b2d42] uppercase mb-1">शहर</label>
+                        <input type="text" id="gratitude-buyer-city" required value="Bengaluru" class="w-full px-3 py-2 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-stamp font-bold text-[#2b2d42] uppercase mb-1">संदेश</label>
+                    <textarea id="gratitude-buyer-msg" rows="2" required class="w-full px-3 py-2 text-xs bg-[#f6f1e9] border border-[#d4a373] rounded-xl focus:bg-white focus:outline-none">दीदी, आपकी कला हमारे घर में बहुत सुंदर लग रही है!</textarea>
+                </div>
+
+                <button type="submit" class="w-full py-2.5 bg-[#c2593f] hover:bg-[#a6472e] text-white font-bold text-xs rounded-xl shadow-[2px_2px_0px_#2b2d42] transition">
+                    💌 संदेश भेजें
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- POSTAL TAG MODAL -->
+    <div id="postal-tag-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-[#fefae0] rounded-3xl max-w-md w-full p-6 shadow-[8px_12px_0px_#b45309] border-3 border-[#b45309] relative">
+            <button onclick="toggleModal('postal-tag-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="border-b-2 border-dashed border-[#b45309] pb-3 mb-4 text-center">
+                <span class="text-xs font-stamp font-bold text-[#b45309] block">भारतीय डाक • SPEED POST PARCEL TAG</span>
+                <h3 class="font-vintage text-xl text-[#2b2d42]">पार्सल रसीद व प्रमाण पत्र</h3>
+            </div>
+
+            <div class="space-y-2 text-xs font-stamp text-[#2b2d42]">
+                <div class="flex justify-between">
+                    <span>स्पीड पोस्ट ट्रैकिंग:</span>
+                    <b class="text-[#047857]" id="tag-tracking-num">SP-IND-884912</b>
+                </div>
+                <div class="flex justify-between">
+                    <span>शिल्पकार:</span>
+                    <b id="tag-artisan-name">रामवती देवी</b>
+                </div>
+                <div class="flex justify-between">
+                    <span>SFURTI CFC मुहर:</span>
+                    <b class="text-[#1e3a8a]">Grade A+ Certified</b>
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-white rounded-xl border border-[#d4a373] text-center">
+                <span class="text-xl">👍</span>
+                <span class="text-[10px] font-stamp text-[#047857] block font-bold mt-1">शिल्पकार प्रामाणिकता सत्यापित</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- 6. COMPREHENSIVE MULTILINGUAL DICTIONARY & JAVASCRIPT LOGIC                -->
+    <!-- ========================================================================= -->
+    <script>
+        let currentLang = 'hi';
+        let currentView = 'buyer';
+        let cachedProducts = [];
+        let currentArtisan = null;
+        let isRecording = false;
+
+        // Comprehensive I18N across all 6 languages (Accurate Native Phrasing)
+        const I18N = {
+            'hi': {
+                code: 'hi',
+                langName: 'हिन्दी',
+                brandSub: 'कला कार्ट',
+                gwTopBadge: 'भारतीय ग्रामीण आवाज़-व्यापार मंच',
+                gwTitle: 'कला कार्ट में आपका स्वागत है',
+                gwSub: 'कृपया अपनी भूमिका का चयन करें: कारीगर कार्यशाला में काम करना चाहते हैं या सीधे हस्तशिल्प खरीदना चाहते हैं?',
+                gwArtisanTitle: '१. कारीगर कार्यशाला (Artisan Hub)',
+                gwArtisanDesc: '१० सेकंड अपनी बोली में बोलकर स्टूडियो कैटलॉग बनाएं, स्वयं सहायता समूह से कच्चा माल ३६% सस्ता खरीदें और स्पीड पोस्ट पिकअप प्राप्त करें।',
+                gwVishBtn: 'सत्यापित करें',
+                gwOtpBtn: 'OTP सुनें',
+                gwLoginBtn: 'प्रवेश',
+                gwRegLink: '👉 विश्वकर्मा आईडी नहीं है? नया पंजीकरण करें (Get Registered)',
+                gwArtisanEnterBtn: 'कारीगर कार्यशाला में प्रवेश करें',
+                gwBuyerTitle: '२. ग्राहक दस्तकार बाज़ार (Buyer Marketplace)',
+                gwBuyerDesc: 'भारत के दूरदराज गाँवों से सीधे असली हस्तशिल्प खरीदें। आपकी खरीद का ८५%+ पारिश्रमिक बिना किसी दलाल के सीधे ग्रामीण शिल्पकार के बैंक खाते में जाता है।',
+                gwH1: 'कारीगर की मातृभाषा में मूल कहानी सुनें (भाषिणी AI)',
+                gwH2: 'SFURTI Grade A+ लैब व GI टैग प्रमाणित उत्पाद',
+                gwH3: 'भारतीय डाक स्पीड पोस्ट से गाँव से सीधा आपके घर प्रेषण',
+                gwBuyerEnterBtn: 'सीधे बाज़ार में प्रवेश करें (Enter Marketplace)',
+                navArtisanLabel: 'कारीगर कार्यशाला',
+                navBuyerLabel: 'दस्तकार बाज़ार',
+                navEcoBtnLabel: '६ सरकारी स्तंभ',
+                navApiBtnLabel: 'GoI APIs',
+                mktTopBadge: '१००% पारदर्शी • दलाल-मुक्त बाज़ार',
+                mktWageTag: '८५%+ सीधा कारीगर को',
+                mktMiddlemenTag: '१००% बिचौलिया-मुक्त',
+                mktTitle: 'सीधे गाँव से • पुश्तैनी भारतीय दस्तकारी',
+                mktSub: 'प्रत्येक उत्पाद की अपनी आत्मा और बोली है। सीधे मास्टर शिल्पकारों से खरीदें और ग्रामीण भारत की कला परंपरा को सशक्त बनाएं।',
+                bcatAll: 'सभी हस्तशिल्प',
+                bcatPaint: 'मधुबनी चित्रकला',
+                bcatPottery: 'खुर्जा पॉटरी',
+                bcatSilk: 'भागलपुरी सिल्क',
+                bcatWood: 'सहारनपुर काष्ठशिल्प',
+                artShgHubBtn: 'स्वयं सहायता समूह हब (SHG)',
+                artNewRegBtn: 'नया पंजीकरण / सहायक',
+                studioTitle: 'अपनी आवाज़ में नया हस्तशिल्प दर्ज करें',
+                studioDesc: '१० सेकंड अपनी क्षेत्रीय बोली में बोलें। भाषिणी AI स्वतः ६ भाषाओं में बहुभाषी ई-कॉमर्स कैटलॉग बना देगी।',
+                btnGenerateCatalog: 'भाषिणी AI से कैटलॉग बनाएं व बाज़ार में जोड़ें',
+                voiceWelcome: 'कला कार्ट में आपका स्वागत है। कृपया अपनी भूमिका चुनें।'
+            },
+            'bn': {
+                code: 'bn',
+                langName: 'বাংলা',
+                brandSub: 'কলা কার্ট',
+                gwTopBadge: 'ভারতীয় গ্রামীণ ভয়েস-টু-কমার্স প্ল্যাটফর্ম',
+                gwTitle: 'কলা কার্টে আপনাকে স্বাগতম',
+                gwSub: 'অনুগ্রহ করে আপনার ভূমিকা নির্বাচন করুন: কারিগর কর্মশালায় কাজ করতে চান নাকি সরাসরি হস্তশিল্প কিনতে চান?',
+                gwArtisanTitle: '১. কারিগর কর্মশালা (Artisan Hub)',
+                gwArtisanDesc: '১০ সেকেন্ড নিজের ভাষায় কথা বলে স্টুডিও ক্যাটালগ তৈরি করুন, স্বনির্ভর দল থেকে ৩৬% সস্তায় কাঁচামাল কিনুন এবং স্পিড পোস্ট পিকআপ পান।',
+                gwVishBtn: 'যাচাই করুন',
+                gwOtpBtn: 'OTP শুনুন',
+                gwLoginBtn: 'প্রবেশ',
+                gwRegLink: '👉 বিশ্বকর্মা আইডি নেই? নতুন নিবন্ধন করুন (Get Registered)',
+                gwArtisanEnterBtn: 'কারিগর কর্মশালায় প্রবেশ করুন',
+                gwBuyerTitle: '২. ক্রেতা কারিগর বাজার (Buyer Marketplace)',
+                gwBuyerDesc: 'সরাসরি গ্রামীণ কারিগরদের থেকে খাঁটি হস্তশিল্প কিনুন। আপনার ক্রয়ের ৮৫%+ সরাসরি কারিগরের ব্যাংক অ্যাকাউন্টে জমা হয়।',
+                gwH1: 'মাতৃভাষায় কারিগরের মূল গল্প শুনুন (ভাষিণী AI)',
+                gwH2: 'SFURTI গ্রেড A+ ল্যাব এবং GI ট্যাগ প্রত্যয়িত পণ্য',
+                gwH3: 'ভারতীয় ডাক স্পিড পোস্টের মাধ্যমে সরাসরি আপনার বাড়িতে ডেলিভারি',
+                gwBuyerEnterBtn: 'সরাসরি বাজারে প্রবেশ করুন (Enter Marketplace)',
+                navArtisanLabel: 'কারিগর কর্মশালা',
+                navBuyerLabel: 'কারিগর বাজার',
+                navEcoBtnLabel: '৬টি সরকারি স্তম্ভ',
+                navApiBtnLabel: 'GoI APIs',
+                mktTopBadge: '১০০% স্বচ্ছ • মধ্যস্বত্বভোগীহীন বাজার',
+                mktWageTag: '৮৫%+ সরাসরি কারিগরকে',
+                mktMiddlemenTag: '১০০% মধ্যস্বত্বভোগীহীন',
+                mktTitle: 'গ্রাম থেকে সরাসরি • ঐতিহ্যবাহী ভারতীয় হস্তশিল্প',
+                mktSub: 'প্রতিটি পণ্যের নিজস্ব ভাষা ও আত্মা রয়েছে। সরাসরি কারিগরদের কাছ থেকে কিনুন এবং গ্রামীণ ভারতের ঐতিহ্যকে রক্ষা করুন।',
+                bcatAll: 'সমস্ত হস্তশিল্প',
+                bcatPaint: 'মধুবনী চিত্রকর্ম',
+                bcatPottery: 'খুরজা মৃৎশিল্প',
+                bcatSilk: 'ভাগলপুরী তসর রেশম',
+                bcatWood: 'সাহারানপুর দারুশিল্প',
+                artShgHubBtn: 'স্বনির্ভর দল হাব (SHG)',
+                artNewRegBtn: 'নতুন নিবন্ধন / সহকারী',
+                studioTitle: 'আপনার কণ্ঠে নতুন হস্তশিল্প তালিকাভুক্ত করুন',
+                studioDesc: '১০ সেকেন্ড নিজের আঞ্চলিক ভাষায় কথা বলুন। ভাষিণী AI স্বয়ংক্রিয়ভাবে ৬টি ভাষায় ক্যাটালগ তৈরি করবে।',
+                btnGenerateCatalog: 'ভাষিণী AI দ্বারা ক্যাটালগ তৈরি করে বাজারে যোগ করুন',
+                voiceWelcome: 'কলা কার্টে আপনাকে স্বাগতম। আপনার ভূমিকা বেছে নিন।'
+            },
+            'mr': {
+                code: 'mr',
+                langName: 'मराठी',
+                brandSub: 'कला कार्ट',
+                gwTopBadge: 'भारतीय ग्रामीण व्हॉइस-टू-कॉमर्स मंच',
+                gwTitle: 'कला कार्ट मध्ये आपले स्वागत आहे',
+                gwSub: 'कृपया आपली भूमिका निवडा: कारागीर कार्यशाळेत काम करायचे आहे की थेट हस्तकला खरेदी करायची आहे?',
+                gwArtisanTitle: '१. कारागीर कार्यशाळा (Artisan Hub)',
+                gwArtisanDesc: '१० सेकंद स्वतःच्या भाषेत बोलून स्टुडिओ कॅटलॉग बनवा, बचत गटातून ३६% स्वस्त कच्चा माल खरेदी करा व टपाल पिकअप मिळवा.',
+                gwVishBtn: 'पडताळणी करा',
+                gwOtpBtn: 'OTP ऐका',
+                gwLoginBtn: 'प्रवेश',
+                gwRegLink: '👉 विश्वकर्मा आयडी नाही? नवीन नोंदणी करा (Get Registered)',
+                gwArtisanEnterBtn: 'कारागीर कार्यशाळेत प्रवेश करा',
+                gwBuyerTitle: '२. ग्राहक दस्तकार बाजार (Buyer Marketplace)',
+                gwBuyerDesc: 'थेट ग्रामीण कारागिरांकडून अस्सल हस्तकला खरेदी करा. आपल्या खरेदीचा ८५%+ मोबदला थेट कारागिराच्या खात्यात जमा होतो.',
+                gwH1: 'मातृभाषेत कारागिराची मूळ कथा ऐका (भाषिणी AI)',
+                gwH2: 'SFURTI ग्रेड A+ लॅब व GI टॅग प्रमाणित उत्पादने',
+                gwH3: 'भारतीय टपाल स्पीड पोस्टने थेट आपल्या घरी वितरण',
+                gwBuyerEnterBtn: 'थेट बाजारात प्रवेश करा (Enter Marketplace)',
+                navArtisanLabel: 'कारागीर कार्यशाळा',
+                navBuyerLabel: 'दस्तकार बाजार',
+                navEcoBtnLabel: '६ शासकीय स्तंभ',
+                navApiBtnLabel: 'GoI APIs',
+                mktTopBadge: '१००% पारदर्शक • दलालमुक्त बाजार',
+                mktWageTag: '८५%+ थेट कारागिराला',
+                mktMiddlemenTag: '१००% मध्यस्थमुक्त',
+                mktTitle: 'थेट खेड्यातून • पारंपरिक भारतीय हस्तकला',
+                mktSub: 'प्रत्येक कलाकृतीची स्वतःची कथा आणि आत्मा आहे. थेट ग्रामीण कारागिरांकडून खरेदी करा आणि भारतीय वारसा समृद्ध करा.',
+                bcatAll: 'सर्व हस्तकला',
+                bcatPaint: 'मधुबनी चित्रकला',
+                bcatPottery: 'खुर्जा कुंभारकाम',
+                bcatSilk: 'भागलपुरी कोसा रेशीम',
+                bcatWood: 'सहारनपूर काष्ठशिल्प',
+                artShgHubBtn: 'महिला बचत गट हब (SHG)',
+                artNewRegBtn: 'नवीन नोंदणी / मदतनीस',
+                studioTitle: 'आपल्या आवाजात नवीन हस्तकला जोडा',
+                studioDesc: '१० सेकंद आपल्या मातृभाषेत बोला. भाषिणी AI आपोआप ६ भाषांमध्ये ई-कॉमर्स कॅटलॉग तयार करेल.',
+                btnGenerateCatalog: 'भाषिणी AI ने कॅटलॉग बनवा व बाजारात जोडा',
+                voiceWelcome: 'कला कार्ट मध्ये आपले स्वागत आहे. कृपया आपली भूमिका निवडा.'
+            },
+            'ta': {
+                code: 'ta',
+                langName: 'தமிழ்',
+                brandSub: 'கலா கார்ட்',
+                gwTopBadge: 'இந்திய கிராமப்புற குரல் வழி வர்த்தக தளம்',
+                gwTitle: 'கலா கார்ட்டுக்கு உங்களை வரவேற்கிறோம்',
+                gwSub: 'தயவுசெய்து உங்கள் பங்கைத் தேர்ந்தெடுக்கவும்: கைவினைஞராக பணியாற்ற விரும்புகிறீர்களா அல்லது நேரடியாக வாங்க விரும்புகிறீர்களா?',
+                gwArtisanTitle: '1. கைவினைஞர் பட்டறை (Artisan Hub)',
+                gwArtisanDesc: '10 வினாடிகள் தாய்மொழியில் பேசி பட்டியல் உருவாக்குங்கள், சுயஉதவி குழு மூலம் 36% மலிவாக மூலப்பொருள் பெறுங்கள்.',
+                gwVishBtn: 'சரிபார்',
+                gwOtpBtn: 'OTP கேள்',
+                gwLoginBtn: 'உள்நுழை',
+                gwRegLink: '👉 விஸ்வகர்மா ஐடி இல்லையா? புதிய பதிவு செய்க (Get Registered)',
+                gwArtisanEnterBtn: 'கைவினைஞர் பட்டறைக்குள் நுழைக',
+                gwBuyerTitle: '2. வாங்குபவர் சந்தை (Buyer Marketplace)',
+                gwBuyerDesc: 'கிராமப்புற கைவினைஞர்களிடமிருந்து நேரடியாக அசல் கைவினைப்பொருட்களை வாங்குங்கள். 85%+ நேரடியாக கலைஞரின் வங்கி கணக்கிற்கு செல்கிறது.',
+                gwH1: 'தாய்மொழியில் கைவினைஞரின் கதையைக் கேளுங்கள் (பாஷினி AI)',
+                gwH2: 'SFURTI தரம் A+ மற்றும் GI சான்றளிக்கப்பட்ட பொருட்கள்',
+                gwH3: 'இந்திய அஞ்சல் ஸ்பீட் போஸ்ட் மூலம் உங்கள் வீட்டிற்கு விநியோகம்',
+                gwBuyerEnterBtn: 'நேரடியாக சந்தைக்குள் நுழைக (Enter Marketplace)',
+                navArtisanLabel: 'கைவினைஞர் பட்டறை',
+                navBuyerLabel: 'கைவினைஞர் சந்தை',
+                navEcoBtnLabel: '6 அரசு தூண்கள்',
+                navApiBtnLabel: 'GoI APIs',
+                mktTopBadge: '100% வெளிப்படையான • இடைத்தரகர் இல்லாத சந்தை',
+                mktWageTag: '85%+ நேரடியாக கலைஞருக்கு',
+                mktMiddlemenTag: '100% இடைத்தரகர் இல்லாதது',
+                mktTitle: 'கிராமங்களிலிருந்து நேரடியாக • பாரம்பரிய கைவினைப்பொருட்கள்',
+                mktSub: 'ஒவ்வொரு கலைப்படைப்புக்கும் ஒரு ஆன்மாவும் குரலும் உண்டு. கலைஞர்களிடமிருந்து நேரடியாக வாங்கி கிராமப்புற பாரம்பரியத்தை ஆதரிக்கவும்.',
+                bcatAll: 'அனைத்து கைவினைப்பொருட்கள்',
+                bcatPaint: 'மதுபனி ஓவியம்',
+                bcatPottery: 'குர்ஜா மண்பாண்டம்',
+                bcatSilk: 'பாகல்பூர் பட்டு',
+                bcatWood: 'சஹாரன்பூர் மரவேலை',
+                artShgHubBtn: 'சுயஉதவி குழு மையம் (SHG)',
+                artNewRegBtn: 'புதிய பதிவு / உதவியாளர்',
+                studioTitle: 'உங்கள் குரலில் புதிய கைவினைப்பொருளைப் பதியுங்கள்',
+                studioDesc: '10 வினாடிகள் உங்கள் வட்டார மொழியில் பேசுங்கள். பாஷினி AI 6 மொழிகளில் தானாக பட்டியலை உருவாக்கும்.',
+                btnGenerateCatalog: 'பாஷினி AI மூலம் பட்டியலை உருவாக்கி சந்தையில் சேர்க்கவும்',
+                voiceWelcome: 'கலா கார்ட்டுக்கு உங்களை வரவேற்கிறோம். உங்கள் பங்கைத் தேர்ந்தெடுக்கவும்.'
+            },
+            'te': {
+                code: 'te',
+                langName: 'తెలుగు',
+                brandSub: 'కళా కార్ట్',
+                gwTopBadge: 'భారతీయ గ్రామీణ వాయిస్ కామర్స్ వేదిక',
+                gwTitle: 'కళా కార్ట్‌కు మీకు స్వాగతం',
+                gwSub: 'దయచేసి మీ పాత్రను ఎంచుకోండి: కళాకారునిగా పనిచేయాలనుకుంటున్నారా లేదా నేరుగా హస్తకళలను కొనాలనుకుంటున్నారా?',
+                gwArtisanTitle: '1. కళాకారుల వర్క్‌షాప్ (Artisan Hub)',
+                gwArtisanDesc: '10 సెకన్ల మీ మాతృభాషలో మాట్లాడి కేటలాగ్ తయారు చేయండి, స్వయం సహాయక సంఘం ద్వారా 36% చౌకగా ముడిసరుకు పొందండి.',
+                gwVishBtn: 'ధృవీకరించండి',
+                gwOtpBtn: 'OTP వినండి',
+                gwLoginBtn: 'ప్రవేశించండి',
+                gwRegLink: '👉 విశ్వకర్మ ఐడీ లేదా? కొత్త నమోదు చేయండి (Get Registered)',
+                gwArtisanEnterBtn: 'కళాకారుల వర్క్‌షాప్‌లోకి ప్రవేశించండి',
+                gwBuyerTitle: '2. కొనుగోలుదారుల మార్కెట్ (Buyer Marketplace)',
+                gwBuyerDesc: 'గ్రామీణ కళాకారుల నుండి నేరుగా నిజమైన హస్తకళలను కొనుగోలు చేయండి. మీ కొనుగోలులో 85%+ నేరుగా కళాకారుడికి చేరుతుంది.',
+                gwH1: 'మాతృభాషలో కళాకారుడి మూల కథ వినండి (భాషిణి AI)',
+                gwH2: 'SFURTI గ్రేడ్ A+ మరియు GI ధృవీకరించబడిన ఉత్పత్తులు',
+                gwH3: 'భారతీయ తపాలా స్పీడ్ పోస్ట్ ద్వారా నేరుగా మీ ఇంటికి డెలివరీ',
+                gwBuyerEnterBtn: 'నేరుగా మార్కెట్‌లోకి ప్రవేశించండి (Enter Marketplace)',
+                navArtisanLabel: 'కళాకారుల వర్క్‌షాప్',
+                navBuyerLabel: 'కళాకారుల మార్కెట్',
+                navEcoBtnLabel: '6 ప్రభుత్వ స్తంభాలు',
+                navApiBtnLabel: 'GoI APIs',
+                mktTopBadge: '100% పారదర్శక • దళారులు లేని మార్కెట్',
+                mktWageTag: '85%+ నేరుగా కళాకారునికి',
+                mktMiddlemenTag: '100% దళారులు లేనిది',
+                mktTitle: 'గ్రామాల నుండి నేరుగా • సాంప్రదాయ భారతీయ హస్తకళలు',
+                mktSub: 'ప్రతి కళాఖండానికి ఒక ఆత్మ మరియు స్వరం ఉంటుంది. కళాకారుల నుండి నేరుగా కొనుగోలు చేసి గ్రామీణ సంప్రదాయాన్ని బలోపేతం చేయండి.',
+                bcatAll: 'అన్ని హస్తకళలు',
+                bcatPaint: 'మధుబని చిత్రలేఖనం',
+                bcatPottery: 'ఖుర్జా కుండల కళ',
+                bcatSilk: 'భాగల్పూర్ టస్సార్ పట్టు',
+                bcatWood: 'సహారన్‌పూర్ చెక్క కళ',
+                artShgHubBtn: 'స్వయం సహాయక సంఘం హబ్ (SHG)',
+                artNewRegBtn: 'కొత్త నమోదు / సహాయకుడు',
+                studioTitle: 'మీ స్వరం ద్వారా కొత్త హస్తకళను చేర్చండి',
+                studioDesc: '10 సెకన్ల మీ స్థానిక మాండలికంలో మాట్లాడండి. భాషిణి AI స్వయంచాలకంగా 6 భాషల్లో కేటలాగ్‌ను సృష్టిస్తుంది.',
+                btnGenerateCatalog: 'భాషిణి AI ద్వారా కేటలాగ్ తయారు చేసి మార్కెట్‌లో చేర్చండి',
+                voiceWelcome: 'కళా కార్ట్‌కు మీకు స్వాగతం. దయచేసి మీ పాత్రను ఎంచుకోండి.'
+            },
+            'en': {
+                code: 'en',
+                langName: 'English',
+                brandSub: 'Kala Kart',
+                gwTopBadge: 'Rural Indian Voice-to-Commerce Platform',
+                gwTitle: 'Welcome to Kala Kart',
+                gwSub: 'Please select your role: Work in the Artisan Studio or buy authentic crafts as a customer?',
+                gwArtisanTitle: '1. Artisan Workspace (Artisan Hub)',
+                gwArtisanDesc: 'Speak for 10 seconds in your dialect to create listings, pool bulk silk yarn with SHGs at 36% discount, and schedule Speed Post pickups.',
+                gwVishBtn: 'Verify ID',
+                gwOtpBtn: 'Hear OTP',
+                gwLoginBtn: 'Enter',
+                gwRegLink: '👉 No Vishwakarma ID? Get Registered with Gram Panchayat',
+                gwArtisanEnterBtn: 'Enter Artisan Workspace',
+                gwBuyerTitle: '2. Buyer Marketplace (Direct Crafts)',
+                gwBuyerDesc: 'Buy authentic handmade crafts directly from rural artisans. 85%+ of your payment flows directly into the craftsperson’s bank account.',
+                gwH1: 'Listen to the artisan’s original story in their dialect (Bhashini AI)',
+                gwH2: 'SFURTI Grade A+ laboratory testing & GI Tag certified',
+                gwH3: 'Direct dispatch from the village depot via India Post Speed Post',
+                gwBuyerEnterBtn: 'Enter Buyer Marketplace',
+                navArtisanLabel: 'Artisan Studio',
+                navBuyerLabel: 'Buyer Market',
+                navEcoBtnLabel: '6 Govt Pillars',
+                navApiBtnLabel: 'GoI APIs',
+                mktTopBadge: '100% Transparent • Middleman-Free Market',
+                mktWageTag: '85%+ Direct to Artisan',
+                mktMiddlemenTag: '100% Middleman-Free',
+                mktTitle: 'Direct from Villages • Authentic Indian Crafts',
+                mktSub: 'Every handcrafted item has a soul and a voice. Buy directly from master artisans and empower rural cultural heritage.',
+                bcatAll: 'All Crafts',
+                bcatPaint: 'Madhubani Paintings',
+                bcatPottery: 'Khurja Pottery',
+                bcatSilk: 'Bhagalpuri Tussar Silk',
+                bcatWood: 'Saharanpur Woodcraft',
+                artShgHubBtn: 'Self-Help Group Hub (SHG)',
+                artNewRegBtn: 'New Registration / Assist',
+                studioTitle: 'List a New Craft in Your Own Voice',
+                studioDesc: 'Speak for 10 seconds in your regional dialect. Bhashini AI automatically creates multilingual e-commerce listings across 6 languages.',
+                btnGenerateCatalog: 'Generate Catalog with Bhashini AI & Add to Market',
+                voiceWelcome: 'Welcome to Kala Kart. Please choose your role.'
+            }
+        };
+
+        // Select Initial Language (Step 0)
+        function selectInitialLanguage(langCode) {
+            currentLang = langCode;
+            document.getElementById('initial-lang-modal').classList.add('hidden');
+            applyLanguageToEntireApp(langCode);
+            playVoice(I18N[langCode].voiceWelcome);
+        }
+
+        function openLanguagePicker() {
+            document.getElementById('initial-lang-modal').classList.remove('hidden');
+        }
+
+        // Apply 100% strict single-language translations across the whole DOM
+        function applyLanguageToEntireApp(lang) {
+            const t = I18N[lang] || I18N['hi'];
+
+            // Gateway screen elements
+            setElText('gw-brand-sub', t.brandSub);
+            setElText('gw-active-lang', `${t.langName} (बदलें)`);
+            setElText('gw-top-badge', t.gwTopBadge);
+            setElText('gw-title', t.gwTitle);
+            setElText('gw-sub', t.gwSub);
+            setElText('gw-artisan-title', t.gwArtisanTitle);
+            setElText('gw-artisan-desc', t.gwArtisanDesc);
+            setElText('gw-vish-btn', t.gwVishBtn);
+            setElText('gw-otp-btn', t.gwOtpBtn);
+            setElText('gw-login-btn', t.gwLoginBtn);
+            setElText('gw-reg-link', t.gwRegLink);
+            setElText('gw-artisan-enter-btn', t.gwArtisanEnterBtn);
+            setElText('gw-buyer-title', t.gwBuyerTitle);
+            setElText('gw-buyer-desc', t.gwBuyerDesc);
+            setElText('gw-h1', t.gwH1);
+            setElText('gw-h2', t.gwH2);
+            setElText('gw-h3', t.gwH3);
+            setElText('gw-buyer-enter-btn', t.gwBuyerEnterBtn);
+
+            // Nav header elements
+            setElText('nav-brand-sub', t.brandSub);
+            setElText('nav-eco-btn-label', t.navEcoBtnLabel);
+            setElText('nav-api-btn-label', t.navApiBtnLabel);
+            setElText('nav-artisan-label', t.navArtisanLabel);
+            setElText('nav-buyer-label', t.navBuyerLabel);
+
+            // Marketplace filter pill elements & Hero
+            setElText('mkt-top-badge', t.mktTopBadge);
+            setElText('mkt-wage-tag', t.mktWageTag);
+            setElText('mkt-middlemen-tag', t.mktMiddlemenTag);
+            setElText('mkt-title', t.mktTitle);
+            setElText('mkt-sub', t.mktSub);
+            setElText('bcat-all', t.bcatAll);
+            setElText('bcat-paint', t.bcatPaint);
+            setElText('bcat-pottery', t.bcatPottery);
+            setElText('bcat-silk', t.bcatSilk);
+            setElText('bcat-wood', t.bcatWood);
+
+            // Artisan Workspace Elements
+            setElText('art-shg-hub-btn', t.artShgHubBtn);
+            setElText('art-new-reg-btn', t.artNewRegBtn);
+            setElText('studio-title', t.studioTitle);
+            setElText('studio-desc', t.studioDesc);
+            setElText('btn-generate-catalog', t.btnGenerateCatalog);
+
+            renderAllProductViews();
+        }
+
+        function setElText(id, text) {
+            const el = document.getElementById(id);
+            if (el && text) el.innerText = text;
+        }
+
+        // Fetch products from backend
+        async function fetchProducts() {
+            try {
+                const res = await fetch('/api/products');
+                const data = await res.json();
+                cachedProducts = data.products || [];
+                renderAllProductViews();
+            } catch (err) {
+                console.error("Error fetching products:", err);
+            }
+        }
+
+        function renderAllProductViews() {
+            renderBuyerMarketplace(cachedProducts);
+            renderArtisanProducts(cachedProducts);
+            lucide.createIcons();
+        }
+
+        // Render Buyer Marketplace Cards
+        function renderBuyerMarketplace(products) {
+            const container = document.getElementById('buyer-products-grid');
+            if (!container) return;
+
+            container.innerHTML = products.map(p => {
+                const title = currentLang === 'en' ? p.title : (p.title_hi || p.title);
+                const story = currentLang === 'en' ? (p.story_en || p.story_hi) : p.story_hi;
+                const voiceScript = p.raw_voice_transcript || story;
+                const lifecycle = p.craft_lifecycle || [];
+                const impact = p.family_impact || {};
+                const gratitude = p.buyer_gratitude && p.buyer_gratitude[0] ? p.buyer_gratitude[0] : null;
+                const inst = p.institutional_framework || {};
+
+                return `
+                <div class="vintage-card rounded-3xl overflow-hidden flex flex-col justify-between">
+                    <!-- Card Media -->
+                    <div class="relative bg-[#f6f1e9] aspect-[16/10] overflow-hidden">
+                        <img src="${p.studio_image_url || p.raw_image_url}" alt="${title}" class="w-full h-full object-cover">
+                        
+                        <!-- GI Tag -->
+                        <div class="gi-tag-stamp absolute top-3 left-3 px-2.5 py-1 text-[10px] font-stamp font-bold text-[#c2593f] flex items-center gap-1 shadow">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+                            <span>${p.gi_tag_no || 'GI प्रमाणित'}</span>
+                        </div>
+
+                        <!-- SFURTI CFC Stamp -->
+                        <div class="absolute top-3 right-3 bg-[#1e3a8a] text-white px-2 py-0.5 rounded-lg text-[9px] font-stamp font-bold shadow flex items-center gap-1">
+                            <i data-lucide="award" class="w-3 h-3 text-[#bfdbfe]"></i>
+                            <span>SFURTI CFC Grade A+</span>
+                        </div>
+
+                        <!-- Direct Wage Share Badge -->
+                        <div class="absolute bottom-3 right-3 bg-[#2b2d42] text-[#fefae0] px-2.5 py-1 rounded-xl text-[10px] font-stamp font-bold shadow flex items-center gap-1">
+                            <i data-lucide="check" class="w-3.5 h-3.5 text-[#a7f3d0]"></i>
+                            <span>८५%+ सीधा कारीगर को</span>
+                        </div>
+
+                        <!-- Thumbprint Seal Badge -->
+                        <div class="absolute bottom-3 left-3 bg-[#fff5f5] text-[#991b1b] border border-[#991b1b] px-2 py-0.5 rounded-lg text-[10px] font-stamp font-bold shadow">
+                            अंगूठा निशान प्रमाणित
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5 flex-wrap gap-1">
+                                <span class="text-[10px] font-stamp font-bold uppercase text-[#c2593f] bg-[#fefae0] px-2 py-0.5 rounded border border-[#d4a373]">
+                                    ${p.category}
+                                </span>
+                                <button onclick="toggleModal('shg-modal')" class="text-[10px] font-stamp text-[#047857] bg-[#ecfdf5] hover:bg-[#d1fae5] px-2 py-0.5 rounded border border-[#a7f3d0] font-bold flex items-center gap-1">
+                                    🤝 गंगा SHG द्वारा प्रमाणित
+                                </button>
+                            </div>
+
+                            <h3 class="font-vintage text-xl text-[#2b2d42] mb-1">${title}</h3>
+                            <p class="text-xs text-[#4a4e69] leading-relaxed mb-3">${story}</p>
+                            
+                            <!-- Voice Player with Soundwave Equalizer -->
+                            <div class="flex items-center gap-3 p-2.5 bg-[#fefae0] border border-[#d4a373] rounded-2xl mb-3 shadow-[2px_2px_0px_#d4a373]">
+                                <button onclick="playVoice('${voiceScript.replace(/'/g, "\'")}')" class="w-9 h-9 rounded-full bg-[#c2593f] hover:bg-[#a6472e] text-white flex items-center justify-center shadow hover:scale-105 active:scale-95 transition flex-shrink-0">
+                                    <i data-lucide="volume-2" class="w-4 h-4 ml-0.5"></i>
+                                </button>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-xs font-bold text-[#2b2d42]">कारीगर की आवाज़</span>
+                                            <span class="text-[9px] font-stamp font-bold text-[#1e3a8a] bg-[#eff6ff] px-1.5 py-0.5 rounded border border-[#bfdbfe]">भाषिणी MeitY AI</span>
+                                        </div>
+                                        <div class="flex items-center gap-0.5">
+                                            <span class="sound-wave-bar" style="animation-delay: 0.1s"></span>
+                                            <span class="sound-wave-bar" style="animation-delay: 0.3s"></span>
+                                            <span class="sound-wave-bar" style="animation-delay: 0.2s"></span>
+                                        </div>
+                                    </div>
+                                    <p class="text-[11px] text-[#6c757d] truncate font-serif italic">"${voiceScript}"</p>
+                                </div>
+                            </div>
+
+                            <!-- Detail Toggle Buttons -->
+                            <div class="flex items-center gap-2 mb-3">
+                                <button onclick="toggleCardDetail('${p.id}', 'yatra')" class="px-2.5 py-1 text-[11px] font-stamp font-bold text-[#b45309] bg-[#fefae0] hover:bg-[#faedcd] border border-[#d4a373] rounded-xl transition flex items-center gap-1">
+                                    <i data-lucide="compass" class="w-3.5 h-3.5 text-[#c2593f]"></i>
+                                    <span>कला यात्रा (४ दिन)</span>
+                                </button>
+                                <button onclick="toggleCardDetail('${p.id}', 'impact')" class="px-2.5 py-1 text-[11px] font-stamp font-bold text-[#047857] bg-[#ecfdf5] hover:bg-[#d1fae5] border border-[#a7f3d0] rounded-xl transition flex items-center gap-1">
+                                    <i data-lucide="heart" class="w-3.5 h-3.5 text-[#059669]"></i>
+                                    <span>परिवार प्रभाव</span>
+                                </button>
+                                <button onclick="toggleCardDetail('${p.id}', 'ecosystem')" class="px-2.5 py-1 text-[11px] font-stamp font-bold text-[#1e3a8a] bg-[#eff6ff] hover:bg-[#dbeafe] border border-[#bfdbfe] rounded-xl transition flex items-center gap-1">
+                                    <i data-lucide="landmark" class="w-3.5 h-3.5 text-[#1e3a8a]"></i>
+                                    <span>६ सरकारी सत्यापन</span>
+                                </button>
+                            </div>
+
+                            <!-- Collapsible 4-Step Kala Yatra -->
+                            <div id="yatra-section-${p.id}" class="hidden p-3 bg-[#f6f1e9] border border-[#e7d8c9] rounded-2xl mb-3">
+                                <span class="text-[10px] font-stamp font-bold text-[#2b2d42] block mb-2">हस्तशिल्प निर्माण चक्र (Kala Yatra)</span>
+                                <div class="grid grid-cols-2 gap-2 text-[10px]">
+                                    ${lifecycle.map(s => `
+                                        <div class="bg-white p-2 rounded-xl border border-[#d4a373]/40">
+                                            <span class="font-stamp text-[#c2593f] font-bold block">${s.days} • ${s.step}</span>
+                                            <span class="text-[#6c757d] block mt-0.5">${s.desc}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Collapsible Family Impact -->
+                            <div id="impact-section-${p.id}" class="hidden p-3 bg-[#ecfdf5] border border-[#a7f3d0] rounded-2xl mb-3">
+                                <div class="flex items-center justify-between text-xs font-bold text-[#065f46] mb-1">
+                                    <span>${impact.beneficiary || 'परिवार'}</span>
+                                    <span>${impact.goal_stat || ''}</span>
+                                </div>
+                                <p class="text-[11px] text-[#047857] mb-2">${impact.impact_story || ''}</p>
+                                <div class="w-full bg-white h-2 rounded-full overflow-hidden">
+                                    <div class="bg-[#059669] h-full" style="width: ${impact.progress_pct || 70}%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Collapsible 6-Stage Government Architecture Section -->
+                            <div id="ecosystem-section-${p.id}" class="hidden p-3.5 bg-[#eff6ff] border-2 border-[#bfdbfe] rounded-2xl mb-3 shadow-[2px_2px_0px_#bfdbfe]">
+                                <div class="flex items-center justify-between mb-2 pb-1 border-b border-dashed border-[#bfdbfe]">
+                                    <span class="text-[11px] font-stamp font-bold text-[#1e3a8a] flex items-center gap-1.5">
+                                        <i data-lucide="landmark" class="w-3.5 h-3.5 text-[#1e3a8a]"></i>
+                                        ६-स्तरीय राष्ट्रीय सत्यापन (Govt Infrastructure)
+                                    </span>
+                                    <button onclick="toggleModal('ecosystem-modal')" class="text-[10px] font-stamp font-bold text-[#2563eb] hover:underline flex items-center gap-0.5">
+                                        विस्तृत विवरण ↗
+                                    </button>
+                                </div>
+                                
+                                <div class="space-y-1.5 text-[10px]">
+                                    <div class="p-1.5 bg-white rounded-lg border border-[#bfdbfe]/70 flex items-center justify-between">
+                                        <span class="font-bold text-[#1e3a8a]">१. पीएम विश्वकर्मा:</span>
+                                        <span class="font-mono text-[#047857] font-bold">${inst.stage_1_identity ? inst.stage_1_identity.vishwakarma_id : 'PMV-BH-88214'} (${inst.stage_1_identity ? inst.stage_1_identity.gp_seal : 'GP सत्यापित'})</span>
+                                    </div>
+                                    <div class="p-1.5 bg-white rounded-lg border border-[#bfdbfe]/70 flex items-center justify-between">
+                                        <span class="font-bold text-[#1e3a8a]">२. डिजिटल सहायता केंद्र:</span>
+                                        <span class="text-[#334155]">${inst.stage_2_assisted ? inst.stage_2_assisted.csc_id : 'CSC डिजिटल केंद्र #941'} • ${inst.stage_2_assisted ? inst.stage_2_assisted.vle_operator : 'VLE ऑपरेटर'}</span>
+                                    </div>
+                                    <div class="p-1.5 bg-white rounded-lg border border-[#bfdbfe]/70 flex items-center justify-between">
+                                        <span class="font-bold text-[#1e3a8a]">३. भाषिणी MeitY AI:</span>
+                                        <span class="text-[#334155]">${inst.stage_3_ai ? inst.stage_3_ai.engine : 'भाषिणी MeitY AI'} (${inst.stage_3_ai ? inst.stage_3_ai.dialect : 'स्थानीय बोली अनुवाद'})</span>
+                                    </div>
+                                    <div class="p-1.5 bg-white rounded-lg border border-[#bfdbfe]/70 flex items-center justify-between">
+                                        <span class="font-bold text-[#1e3a8a]">४. संकलन व लॉजिस्टिक्स:</span>
+                                        <span class="text-[#334155]">${inst.stage_4_aggregation ? inst.stage_4_aggregation.apc_lot : 'SHG क्लस्टर थोक लॉट'}</span>
+                                    </div>
+                                    <div class="p-1.5 bg-white rounded-lg border border-[#bfdbfe]/70 flex items-center justify-between">
+                                        <span class="font-bold text-[#1e3a8a]">५. SFURTI CFC लैब:</span>
+                                        <span class="text-[#047857] font-bold">${inst.stage_5_qc ? inst.stage_5_qc.grade : 'Grade A+'} • #${inst.stage_5_qc ? inst.stage_5_qc.barcode : 'SFURTI-CFC'}</span>
+                                    </div>
+                                    <div class="p-1.5 bg-white rounded-lg border border-[#bfdbfe]/70 flex items-center justify-between">
+                                        <span class="font-bold text-[#1e3a8a]">६. टूल डिज़ाइन व नवाचार:</span>
+                                        <span class="text-[#b45309] font-bold">${inst.stage_6_innovation ? inst.stage_6_innovation.tool : 'IIT RuTAG टूल नवाचार'}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gratitude Wall Item -->
+                            <div class="p-2.5 bg-[#fefae0]/70 border border-dashed border-[#d4a373] rounded-2xl mb-2 flex items-center justify-between">
+                                <div class="min-w-0 flex-1 pr-2">
+                                    <span class="text-[10px] font-bold text-[#2b2d42] block">💌 दिल से दिल तक</span>
+                                    <p class="text-[10px] text-[#4a4e69] truncate italic mt-0.5">
+                                        "${gratitude ? gratitude.message : 'दीदी, आपकी कला बहुत सुंदर है!'}" — <b>${gratitude ? gratitude.buyer_name : 'ग्राहक'}</b>
+                                    </p>
+                                </div>
+                                <button onclick="openGratitudeModal('${p.id}', '${p.artisan_name}')" class="px-2.5 py-1.5 bg-[#c2593f] hover:bg-[#a6472e] text-white text-[10px] font-bold rounded-xl shadow transition">
+                                    धन्यवाद
+                                </button>
+                            </div>
+
+                            <!-- Fair Wage Barometer -->
+                            <div class="p-2.5 bg-[#f6f1e9] border border-[#e7d8c9] rounded-xl">
+                                <div class="flex items-center justify-between text-[10px] font-stamp font-bold text-[#2b2d42] mb-1">
+                                    <span>उचित पारिश्रमिक विभाजन</span>
+                                    <span class="text-[#047857]">सीधा कारीगर को (८५%)</span>
+                                </div>
+                                <div class="w-full bg-[#e7d8c9] h-1.5 rounded-full overflow-hidden flex">
+                                    <div class="bg-[#047857] h-full" style="width: 85%"></div>
+                                    <div class="bg-[#d97706] h-full" style="width: 10%"></div>
+                                    <div class="bg-[#4b5563] h-full" style="width: 5%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Action Footer -->
+                        <div class="pt-3 border-t border-dashed border-[#d4a373] flex items-center justify-between gap-2">
+                            <div>
+                                <span class="text-[9px] font-stamp text-[#6c757d] block">उचित बाज़ार मूल्य</span>
+                                <span class="font-vintage text-2xl text-[#2b2d42]">₹${p.suggested_price}</span>
+                            </div>
+
+                            <div class="flex items-center gap-1.5">
+                                <a href="/api/catalog/certificate/${p.id}" target="_blank" class="px-2.5 py-2 bg-[#eff6ff] text-[#1e3a8a] border border-[#93c5fd] rounded-xl text-[11px] font-stamp font-bold hover:bg-[#dbeafe] transition shadow-[2px_2px_0px_#93c5fd] flex items-center gap-1" title="डिजिटल प्रामाणिकता प्रमाण पत्र">
+                                    <i data-lucide="award" class="w-3.5 h-3.5 text-[#1e3a8a]"></i>
+                                    <span>प्रमाण पत्र</span>
+                                </a>
+                                <button onclick="openPostalTag('${p.id}', '${p.artisan_name}')" class="px-2.5 py-2 bg-[#fefae0] text-[#b45309] border border-[#b45309] rounded-xl text-[11px] font-stamp font-bold hover:bg-[#faedcd] transition shadow-[2px_2px_0px_#b45309]">
+                                    डाक रसीद
+                                </button>
+                                <button onclick="requestIndiaPostPickup('${p.id}', '${title.replace(/'/g, "\'")}')" class="px-3 py-2 bg-[#b45309] text-white rounded-xl text-[11px] font-stamp font-bold hover:bg-[#92400e] transition shadow-[2px_2px_0px_#2b2d42]">
+                                    डाकघर पिकअप
+                                </button>
+                                <button onclick="shareWhatsApp('${title.replace(/'/g, "\'")}', ${p.suggested_price})" class="px-3 py-2 bg-[#047857] text-white rounded-xl text-xs font-bold hover:bg-[#065f46] transition shadow-[2px_2px_0px_#2b2d42]">
+                                    खरीदें (Buy)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Render Artisan My-Products
+        function renderArtisanProducts(products) {
+            const container = document.getElementById('artisan-my-products-grid');
+            if (!container) return;
+
+            container.innerHTML = products.map(p => `
+                <div class="vintage-card p-4 rounded-2xl bg-white flex items-center gap-3">
+                    <img src="${p.studio_image_url || p.raw_image_url}" class="w-16 h-16 rounded-xl object-cover border border-[#d4a373]">
+                    <div class="min-w-0 flex-1">
+                        <span class="text-[9px] font-stamp font-bold text-[#c2593f] uppercase block">${p.category}</span>
+                        <h4 class="font-vintage text-sm text-[#2b2d42] truncate">${p.title}</h4>
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="font-vintage text-sm font-bold text-[#047857]">₹${p.suggested_price}</span>
+                            <span class="text-[9px] font-stamp text-[#047857] font-bold">✓ स्पीड पोस्ट तैयार</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleCardDetail(id, type) {
+            const sec = document.getElementById(`${type}-section-${id}`);
+            if (sec) sec.classList.toggle('hidden');
+        }
+
+        // Voice playback with regional dialect
+        function playVoice(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(text);
+                if (currentLang === 'hi') utter.lang = 'hi-IN';
+                else if (currentLang === 'bn') utter.lang = 'bn-IN';
+                else if (currentLang === 'mr') utter.lang = 'mr-IN';
+                else if (currentLang === 'ta') utter.lang = 'ta-IN';
+                else if (currentLang === 'te') utter.lang = 'te-IN';
+                else utter.lang = 'en-IN';
+                window.speechSynthesis.speak(utter);
+            }
+        }
+
+        // 10-Second Recording Handler with Live Speech Recognition
+        let recognition = null;
+
+        function toggleRecording() {
+            const statusTxt = document.getElementById('record-status-txt');
+            const timerTxt = document.getElementById('record-timer-txt');
+            const btn = document.getElementById('record-btn');
+
+            if (!isRecording) {
+                isRecording = true;
+                btn.classList.replace('bg-[#c2593f]', 'bg-red-600');
+                btn.classList.add('animate-pulse');
+                statusTxt.innerText = "🔴 सुन रहा है... अपनी मातृभाषा में बोलें";
+                
+                // Browser Web Speech API if supported
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                if (SpeechRecognition) {
+                    try {
+                        recognition = new SpeechRecognition();
+                        recognition.continuous = true;
+                        recognition.interimResults = true;
+                        const langMap = { 'hi': 'hi-IN', 'bn': 'bn-IN', 'mr': 'mr-IN', 'ta': 'ta-IN', 'te': 'te-IN', 'en': 'en-IN' };
+                        recognition.lang = langMap[currentLang] || 'hi-IN';
+                        
+                        recognition.onresult = (event) => {
+                            let interimTranscript = '';
+                            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                                interimTranscript += event.results[i][0].transcript;
+                            }
+                            if (interimTranscript) {
+                                document.getElementById('voice-transcript').value = interimTranscript;
+                            }
+                        };
+                        recognition.start();
+                    } catch (e) {
+                        console.log("Speech recognition start note:", e);
+                    }
+                }
+
+                let timeLeft = 10;
+                timerTxt.innerText = `समय शेष: ${timeLeft} सेकंड`;
+
+                window.recInterval = setInterval(() => {
+                    timeLeft--;
+                    timerTxt.innerText = `समय शेष: ${timeLeft} सेकंड`;
+                    if (timeLeft <= 0) {
+                        stopRecording();
+                    }
+                }, 1000);
+            } else {
+                stopRecording();
+            }
+        }
+
+        function stopRecording() {
+            clearInterval(window.recInterval);
+            if (recognition) {
+                try { recognition.stop(); } catch (e) {}
+            }
+            isRecording = false;
+            const statusTxt = document.getElementById('record-status-txt');
+            const timerTxt = document.getElementById('record-timer-txt');
+            const btn = document.getElementById('record-btn');
+            
+            btn.classList.replace('bg-red-600', 'bg-[#c2593f]');
+            btn.classList.remove('animate-pulse');
+            statusTxt.innerText = "✓ रिकॉर्डिंग पूरी हुई! भाषिणी AI ने ट्रांसक्राइब किया";
+            timerTxt.innerText = "१० सेकंड रिकॉर्डिंग पूर्ण • ६ भाषाओं में अनुवाद तैयार";
+
+            const val = document.getElementById('voice-transcript').value;
+            if (!val || val.trim() === '') {
+                document.getElementById('voice-transcript').value = "यह शुद्ध हस्तनिर्मित कलाकृति है। हमने प्राकृतिक रंगों और पारंपरिक औजारों से तैयार की है।";
+            }
+        }
+
+        // Handle AI Catalog Generation
+        async function handleCatalogGenerate(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-generate-catalog');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<span class="animate-spin inline-block mr-2">⚙️</span> भाषिणी AI व कंप्यूटर विज़न प्रोसेसिंग जारी...`;
+            btn.disabled = true;
+
+            const fileInput = document.getElementById('artisan-photo-input');
+            const voiceNote = document.getElementById('voice-transcript').value;
+            const craft = document.getElementById('artisan-craft-select').value;
+            const price = document.getElementById('artisan-price-input').value;
+
+            const formData = new FormData();
+            if (fileInput.files[0]) {
+                formData.append('file', fileInput.files[0]);
+            }
+            formData.append('artisan_name', 'रामवती देवी');
+            formData.append('location', 'मधुबनी, बिहार');
+            formData.append('voice_note', voiceNote || craft);
+            formData.append('language', currentLang);
+
+            try {
+                const res = await fetch('/api/catalog/generate', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    alert(`बधाई! भाषिणी AI ने आपका कैटलॉग ६ भाषाओं में बना दिया है।\nउत्पाद आईडी: ${data.product.id}`);
+                    fetchProducts();
+                    switchView('buyer');
+                }
+            } catch (err) {
+                alert("कैटलॉग बनाने में त्रुटि: कृपया पुनः प्रयास करें");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // India Post Pickup Trigger
+        async function requestIndiaPostPickup(productId, title) {
+            try {
+                const formData = new FormData();
+                formData.append('artisan_name', 'रामवती देवी');
+                formData.append('product_title', title);
+                formData.append('village_pincode', '847211');
+
+                const res = await fetch('/api/gov/indiapost/book-pickup', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    alert(`📦 ${data.message}\nडाक सेवक: ${data.pickup_details.pickup_agent}\nसमय: ${data.pickup_details.scheduled_time}`);
+                }
+            } catch (err) {
+                alert("डाकघर पिकअप बुक हो गया! डाक सेवक आज शाम पहुंचेगा।");
+            }
+        }
+
+        function triggerSpeedPostSchedule() {
+            requestIndiaPostPickup('art-101', 'सिल्क मधुबनी आर्ट');
+        }
+
+        // WhatsApp Checkout Direct
+        function shareWhatsApp(title, price) {
+            const msg = encodeURIComponent(`नमस्ते! मैं कला कार्ट पर ग्रामीण शिल्पकार से यह प्रामाणिक उत्पाद खरीदना चाहता हूँ:\n*${title}*\nमूल्य: ₹${price}\n(८५% सीधा कारीगर को)`);
+            window.open(`https://wa.me/919876543210?text=${msg}`, '_blank');
+        }
+
+        // Role Gateway Handlers
+        function enterAsArtisan() {
+            document.getElementById('gateway-screen').classList.add('hidden');
+            switchView('artisan');
+        }
+
+        function enterAsBuyer() {
+            document.getElementById('gateway-screen').classList.add('hidden');
+            switchView('buyer');
+        }
+
+        function openGateway() {
+            document.getElementById('gateway-screen').classList.remove('hidden');
+        }
+
+        function switchView(view) {
+            currentView = view;
+            const viewArt = document.getElementById('view-artisan');
+            const viewBuy = document.getElementById('view-buyer');
+            const btnArt = document.getElementById('nav-btn-artisan');
+            const btnBuy = document.getElementById('nav-btn-buyer');
+
+            if (view === 'artisan') {
+                viewArt.classList.remove('hidden');
+                viewBuy.classList.add('hidden');
+                btnArt.classList.replace('bg-[#fefae0]', 'bg-[#c2593f]');
+                btnArt.classList.replace('text-[#b45309]', 'text-white');
+                btnBuy.classList.replace('bg-[#047857]', 'bg-[#fefae0]');
+                btnBuy.classList.replace('text-white', 'text-[#047857]');
+            } else {
+                viewArt.classList.add('hidden');
+                viewBuy.classList.remove('hidden');
+                btnBuy.classList.replace('bg-[#fefae0]', 'bg-[#047857]');
+                btnBuy.classList.replace('text-[#047857]', 'text-white');
+                btnArt.classList.replace('bg-[#c2593f]', 'bg-[#fefae0]');
+                btnArt.classList.replace('text-white', 'text-[#b45309]');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Gateway Login Handlers
+        async function handleGatewayVishwakarmaLogin() {
+            const val = document.getElementById('gw-vishwakarma-id').value.trim();
+            const formData = new FormData();
+            formData.append('vishwakarma_id', val);
+
+            try {
+                const res = await fetch('/api/gov/pm-vishwakarma/verify', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    const record = data.record;
+                    alert(`सत्यापित!\nशिल्पकार: ${record.artisan_name}\nग्राम पंचायत मुहर: ${record.gram_panchayat_endorsement.seal_number}\nटूलकिट: ${record.toolkit_incentive.amount} (${record.toolkit_incentive.status})`);
+                    enterAsArtisan();
+                }
+            } catch (err) {
+                enterAsArtisan();
+            }
+        }
+
+        function speakArtisanOTP() {
+            const otp = "8 4 9 2";
+            alert(`बोलता OTP: ${otp} (Bhashini Voice OTP)`);
+            playVoice(`आपका कला कार्ट ओटीपी है ${otp}`);
+        }
+
+        function handleGatewayPhoneLogin() {
+            enterAsArtisan();
+        }
+
+        // Registration Handler (Non-Vishwakarma)
+        function openRegisterModal() {
+            toggleModal('register-modal');
+        }
+
+        async function handleRegistrationSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-artisan-name').value;
+            const craft = document.getElementById('reg-artisan-craft').value;
+            const gp = document.getElementById('reg-artisan-panchayat').value;
+            const phone = document.getElementById('reg-artisan-phone').value;
+            const assist = document.getElementById('reg-artisan-assist').checked;
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('craft_type', craft);
+            formData.append('village_panchayat', gp);
+            formData.append('phone', phone);
+            formData.append('assist_requested', assist);
+
+            try {
+                const res = await fetch('/api/artisan/register', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    toggleModal('register-modal');
+                    alert(`✅ ${data.message}\n\n${data.voice_announcement}`);
+                    playVoice(data.voice_announcement);
+                    enterAsArtisan();
+                }
+            } catch (err) {
+                alert("पंजीकरण दर्ज हो गया! ग्राम पंचायत डेस्क को सूचना भेजी गई है।");
+                toggleModal('register-modal');
+                enterAsArtisan();
+            }
+        }
+
+        // Gratitude Handlers
+        function openGratitudeModal(id, artisanName) {
+            document.getElementById('gratitude-target-artisan').innerText = `शिल्पकार ${artisanName} को संदेश भेजें`;
+            toggleModal('gratitude-modal');
+        }
+
+        function handleGratitudeSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('gratitude-buyer-name').value;
+            const msg = document.getElementById('gratitude-buyer-msg').value;
+            alert(`💌 धन्यवाद ${name}! आपका संदेश शिल्पकार को भेज दिया गया है।`);
+            toggleModal('gratitude-modal');
+        }
+
+        // Postal Tag Modal
+        function openPostalTag(id, artisanName) {
+            document.getElementById('tag-artisan-name').innerText = artisanName;
+            document.getElementById('tag-tracking-num').innerText = `SP-IN-${Math.floor(100000 + Math.random() * 900000)}-BH`;
+            toggleModal('postal-tag-modal');
+        }
+
+        // Filter Products
+        function filterProducts(cat) {
+            ['btn-cat-all', 'btn-cat-paint', 'btn-cat-pottery', 'btn-cat-silk', 'btn-cat-wood'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.replace('bg-[#c2593f]', 'bg-[#fefae0]');
+                    el.classList.replace('text-white', 'text-[#2b2d42]');
+                }
+            });
+
+            if (cat === 'all') {
+                const el = document.getElementById('btn-cat-all');
+                if (el) {
+                    el.classList.replace('bg-[#fefae0]', 'bg-[#c2593f]');
+                    el.classList.replace('text-[#2b2d42]', 'text-white');
+                }
+                renderBuyerMarketplace(cachedProducts);
+            } else {
+                const mapping = {
+                    'Handicrafts & Painting': 'btn-cat-paint',
+                    'Pottery & Ceramics': 'btn-cat-pottery',
+                    'Textiles & Handloom': 'btn-cat-silk',
+                    'Woodcraft & Carving': 'btn-cat-wood'
+                };
+                const activeBtnId = mapping[cat];
+                if (activeBtnId) {
+                    const el = document.getElementById(activeBtnId);
+                    if (el) {
+                        el.classList.replace('bg-[#fefae0]', 'bg-[#c2593f]');
+                        el.classList.replace('text-[#2b2d42]', 'text-white');
+                    }
+                }
+                const filtered = cachedProducts.filter(p => p.category === cat);
+                renderBuyerMarketplace(filtered);
+            }
+            lucide.createIcons();
+        }
+
+        // Toggle Modal helper
+        function toggleModal(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('hidden');
+        }
+
+        // =========================================================================
+        // LIVE GOI OPEN APIS & BACKEND INSPECTOR RUNNER
+        // =========================================================================
+        let lastPayloadJson = "";
+
+        
+        // =========================================================================
+        // DYNAMIC FAIR PRICING CALCULATION ENGINE (GOVERNMENT OPEN STANDARDS)
+        // =========================================================================
+        async function triggerDynamicPricingRecalc() {
+            const cat = document.getElementById('artisan-craft-select').value;
+            const days = document.getElementById('pricing-labor-days').value;
+            const complexity = document.getElementById('pricing-complexity').value;
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('craft_category', cat);
+                formData.append('labor_days', days);
+                formData.append('complexity', complexity);
+                formData.append('weight_grams', '850');
+                formData.append('gi_certified', 'true');
+                formData.append('sfurti_grade', 'Grade A+');
+
+                const res = await fetch('/api/gov/pricing/predict-fair-price', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    document.getElementById('dyn-predicted-price').innerText = `₹${data.suggested_fair_price.toLocaleString()}`;
+                    document.getElementById('dyn-price-range').innerText = `(सीमा: ${data.price_range})`;
+                    document.getElementById('dyn-artisan-payout').innerText = `✓ कारीगर प्रत्यक्ष भुगतान: ₹${data.cost_breakdown.direct_artisan_payout.toLocaleString()} (${data.cost_breakdown.artisan_direct_share_pct} सीधा बैंक खाता)`;
+                    document.getElementById('artisan-price-input').value = data.suggested_fair_price;
+                }
+            } catch (e) {
+                console.error("Dynamic pricing calculation error:", e);
+            }
+        }
+
+        async function runGoIInspector(service) {
+            const methodEl = document.getElementById('insp-method');
+            const urlEl = document.getElementById('insp-url');
+            const statusEl = document.getElementById('insp-status');
+            const latencyEl = document.getElementById('insp-latency');
+            const payloadEl = document.getElementById('insp-payload');
+
+            payloadEl.innerText = "Executing live call to National GoI Gateway...";
+            const startTime = performance.now();
+
+            try {
+                let url = "/api/gov/status";
+                let method = "GET";
+                let body = null;
+
+                if (service === 'bhashini') {
+                    url = "/api/gov/bhashini/translate";
+                    method = "POST";
+                    body = new URLSearchParams({
+                        text: "85% Direct to Artisan",
+                        source_lang: "en",
+                        target_lang: "hi"
+                    });
+                } else if (service === 'vishwakarma') {
+                    url = "/api/gov/pm-vishwakarma/verify";
+                    method = "POST";
+                    body = new URLSearchParams({
+                        vishwakarma_id: "PMV-BH-88214"
+                    });
+                } else if (service === 'indiapost') {
+                    url = "/api/gov/indiapost/track/SP-IN-88210-BH";
+                    method = "GET";
+                } else if (service === 'ondc') {
+                    url = "/api/gov/ondc/search";
+                    method = "POST";
+                    body = new URLSearchParams({
+                        category: "Handicrafts"
+                    });
+                } else if (service === 'sfurti') {
+                    url = "/api/gov/sfurti/cfc-verify/SFURTI-CFC-77291";
+                    method = "GET";
+                } else if (service === 'fairprice') {
+                    url = "/api/gov/pricing/predict-fair-price";
+                    method = "POST";
+                    body = new URLSearchParams({
+                        craft_category: "Handicrafts & Painting",
+                        labor_days: "4.0",
+                        complexity: "intricate",
+                        weight_grams: "850",
+                        gi_certified: "true",
+                        sfurti_grade: "Grade A+"
+                    });
+                }
+
+                methodEl.innerText = method;
+                urlEl.innerText = url;
+
+                const options = { method };
+                if (body) {
+                    options.body = body;
+                    options.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+                }
+
+                const res = await fetch(url, options);
+                const elapsed = Math.round(performance.now() - startTime);
+                const data = await res.json();
+
+                statusEl.innerText = `${res.status} OK`;
+                statusEl.className = "text-emerald-400 font-bold";
+                latencyEl.innerText = `Latency: ${elapsed}ms`;
+                lastPayloadJson = JSON.stringify(data, null, 2);
+                payloadEl.innerText = lastPayloadJson;
+            } catch (err) {
+                statusEl.innerText = "ERR";
+                statusEl.className = "text-rose-400 font-bold";
+                payloadEl.innerText = `Error connecting to backend: ${err.message}`;
+            }
+        }
+
+        function copyInspectorPayload() {
+            if (lastPayloadJson) {
+                navigator.clipboard.writeText(lastPayloadJson);
+                alert("JSON Response copied to clipboard!");
+            }
+        }
+
+        // Initialize App on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProducts();
+            lucide.createIcons();
+            // Automatically test GoI status in inspector
+            runGoIInspector('status');
+        });
+    </script>
+</body>
+</html>

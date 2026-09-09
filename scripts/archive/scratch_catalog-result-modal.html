@@ -1,0 +1,104 @@
+<div id="catalog-result-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-[12px_16px_0px_#047857] border-3 border-[#047857] relative max-h-[90vh] overflow-y-auto text-center">
+            <button onclick="toggleModal('catalog-result-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="w-16 h-16 rounded-2xl bg-[#047857] text-white flex items-center justify-center text-3xl shadow-[3px_3px_0px_#2b2d42] mx-auto mb-3">
+                ✨
+            </div>
+
+            <span class="stamp-badge px-3 py-1 text-xs font-stamp font-bold uppercase text-[#047857] inline-block mb-2">
+                भाषिणी AI व कंप्यूटर विज़न सफलता
+            </span>
+            <h3 class="font-vintage text-2xl sm:text-3xl text-[#2b2d42] mb-1">
+                हस्तशिल्प कैटलॉग सफलतापूर्वक तैयार!
+            </h3>
+            <p class="text-xs text-[#6c757d] font-stamp mb-6">
+                आपका उत्पाद ६ भाषाओं में तैयार हो चुका है और राष्ट्रीय बाज़ार में लाइव है।
+            </p>
+
+            <!-- Generated Card Preview -->
+            <div class="p-4 bg-[#fefae0] rounded-2xl border-2 border-[#d4a373] text-left space-y-3 mb-6 shadow-[3px_3px_0px_#d4a373]">
+                <div class="flex items-center gap-3">
+                    <img id="res-prod-img" src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=400&q=80" class="w-20 h-20 rounded-xl object-cover border-2 border-[#b45309]">
+                    <div class="flex-1 min-w-0">
+                        <span id="res-prod-cat" class="text-[9px] font-stamp font-bold text-[#c2593f] uppercase block">Pottery & Ceramics</span>
+                        <h4 id="res-prod-title" class="font-vintage text-base text-[#2b2d42] font-bold truncate">Terracotta Handcrafted Glazed Pottery</h4>
+                        <div class="flex items-center justify-between mt-1">
+                            <span id="res-prod-price" class="font-vintage text-lg font-bold text-[#047857]">₹1,350</span>
+                            <span class="text-[9px] font-stamp bg-[#ecfdf5] text-[#047857] border border-[#a7f3d0] px-2 py-0.5 rounded font-bold">८५%+ सीधा कारीगर को</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 bg-white rounded-xl border border-[#e7d8c9] text-xs">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-[#2b2d42]">भाषिणी AI अनुवादित विवरण:</span>
+                        <span class="text-[9px] font-stamp text-[#1e3a8a] bg-[#eff6ff] px-1.5 py-0.2 rounded font-bold">६ भाषाएं सक्रिय</span>
+                    </div>
+                    <p id="res-prod-story" class="text-[11px] text-[#4a4e69] leading-relaxed italic mb-2">
+                        "पारंपरिक तकनीकों से निर्मित यह हस्तशिल्प उत्पाद प्राकृतिक सामग्रियों और प्रामाणिक कारीगरी की अनूठी मिसाल है।"
+                    </p>
+
+                    <!-- Real Audio Player in Result Modal -->
+                    <div class="p-2 bg-[#fefae0] border border-[#d4a373] rounded-xl flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <button type="button" onclick="playModalVoice()" id="res-play-btn" class="w-8 h-8 rounded-full bg-[#c2593f] hover:bg-[#a6472e] text-white flex items-center justify-center shadow transition flex-shrink-0 cursor-pointer">
+                                <i data-lucide="volume-2" class="w-4 h-4"></i>
+                            </button>
+                            <div class="min-w-0">
+                                <span class="text-xs font-bold text-[#2b2d42] block">कारीगर की आवाज़ सुनें</span>
+                                <span class="text-[9px] font-stamp text-[#6c757d]">भाषिणी IndicTTS ऑडियो स्ट्रीम</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-0.5">
+                            <span class="sound-wave-bar" style="animation-delay: 0.1s"></span>
+                            <span class="sound-wave-bar" style="animation-delay: 0.3s"></span>
+                            <span class="sound-wave-bar" style="animation-delay: 0.2s"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-[10px] font-stamp">
+                    <div class="p-1.5 bg-white rounded-lg border border-[#d4a373]/50">
+                        <span class="text-[#6c757d]">जीआई मुहर:</span>
+                        <b id="res-prod-gi" class="text-[#c2593f] block">GI-BH-MD-088</b>
+                    </div>
+                    <div class="p-1.5 bg-white rounded-lg border border-[#d4a373]/50">
+                        <span class="text-[#6c757d]">SFURTI लैब मुहर:</span>
+                        <b id="res-prod-qc" class="text-[#1e3a8a] block">Grade A+ Certified</b>
+                    </div>
+                </div>
+
+                <!-- Natural Pigment Swatches in Modal -->
+                <div class="p-2.5 bg-white rounded-xl border border-[#d4a373]/50">
+                    <span class="text-[10px] font-stamp font-bold text-[#2b2d42] block mb-1.5">
+                        🎨 कंप्यूटर विज़न प्रमाणित प्राकृतिक रंग वर्णक्रम (Extracted Swatches):
+                    </span>
+                    <div id="res-prod-swatches" class="flex items-center gap-2 flex-wrap text-[10px] font-stamp">
+                        <!-- Swatches injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <a id="res-cert-link" href="/api/catalog/certificate/art-101" target="_blank" class="py-3 bg-[#1e3a8a] hover:bg-[#172554] text-white text-xs font-stamp font-bold uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#2b2d42] transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="award" class="w-4 h-4 text-[#bfdbfe]"></i>
+                    <span>📜 प्रमाण पत्र (Certificate)</span>
+                </a>
+                <button onclick="viewProductInMarketplace()" class="py-3 bg-[#047857] hover:bg-[#065f46] text-white text-xs font-stamp font-bold uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#2b2d42] transition flex items-center justify-center gap-2">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span>बाज़ार में देखें</span>
+                </button>
+                <button onclick="toggleModal('catalog-result-modal')" class="py-3 bg-[#2b2d42] hover:bg-[#1e1b4b] text-[#fefae0] text-xs font-stamp font-bold uppercase tracking-wider rounded-xl shadow-[3px_3px_0px_#c2593f] transition flex items-center justify-center gap-2">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span>नया जोड़ें</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRATITUDE MODAL -->
+    

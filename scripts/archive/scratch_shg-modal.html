@@ -1,0 +1,139 @@
+<div id="shg-modal" class="fixed inset-0 z-50 hidden bg-[#2b2d42]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-[#fffdfa] rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-[10px_16px_0px_#b45309] border-3 border-[#2b2d42] relative max-h-[92vh] overflow-y-auto">
+            <button onclick="toggleModal('shg-modal')" class="absolute top-5 right-5 text-[#6c757d] hover:text-[#2b2d42] p-1">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="flex items-center gap-3.5 mb-6 border-b-2 border-dashed border-[#d4a373] pb-4">
+                <div class="w-12 h-12 rounded-2xl bg-[#b45309] text-white flex items-center justify-center shadow-[3px_3px_0px_#2b2d42]">
+                    <i data-lucide="users-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-vintage text-2xl text-[#2b2d42]">गंगा महिला स्वयं सहायता समूह</h3>
+                    <p class="text-xs font-stamp text-[#6c757d]">क्लस्टर #14 • 18 महिला दस्तकार दीदियाँ • NRLM / PM-AJAY समर्थित</p>
+                </div>
+            </div>
+
+            <div class="space-y-5">
+                <!-- Section 1: Request Kala Sakhi Visit -->
+                <div class="p-5 bg-[#fefae0] rounded-2xl border-2 border-[#d4a373] space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-[#b45309] text-white flex items-center justify-center text-xs font-bold">१</span>
+                            <h4 class="font-vintage text-lg text-[#2b2d42]">कला सखी दीदी सहायता (Doorstep Sakhi Assistance)</h4>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-stamp font-bold bg-[#fffdfa] text-[#b45309] border border-[#d4a373]">
+                            निःशुल्क ग्रामीण सेवा
+                        </span>
+                    </div>
+                    <p class="text-xs text-[#6c757d] leading-relaxed">
+                        जिन दीदियों के पास स्मार्टफोन नहीं है, उनके घर जाकर कला सखी दीदी सामूहिक फोन से कैटलॉग फोटो और आवाज रिकॉर्ड करती हैं।
+                    </p>
+                    
+                    <form onsubmit="handleSakhiRequestSubmit(event)" class="space-y-2.5 pt-1">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-stamp">
+                            <div>
+                                <label class="block text-[10px] font-bold text-[#6c757d] mb-1">कारीगर का नाम:</label>
+                                <input type="text" id="shg-artisan-name" value="रामवती देवी" class="w-full px-3 py-1.5 rounded-xl border border-[#d4a373] bg-white text-xs text-[#2b2d42] font-semibold" required>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-[#6c757d] mb-1">गाँव / टोला:</label>
+                                <input type="text" id="shg-village-tola" value="पश्चिम टोला, रंती, मधुबनी" class="w-full px-3 py-1.5 rounded-xl border border-[#d4a373] bg-white text-xs text-[#2b2d42] font-semibold" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-[#6c757d] mb-1">सहायता का प्रकार:</label>
+                            <select id="shg-assist-type" class="w-full px-3 py-1.5 rounded-xl border border-[#d4a373] bg-white text-xs text-[#2b2d42]">
+                                <option value="कैटलॉगिंग एवं डिजिटल ऑनबोर्डिंग सहायता">कैटलॉगिंग एवं डिजिटल ऑनबोर्डिंग सहायता (Voice & Photo)</option>
+                                <option value="स्मार्टफोन व वॉइस रिकॉर्डिंग सहायता">स्मार्टफोन व वॉइस रिकॉर्डिंग सहायता (भाषिणी AI)</option>
+                                <option value="बैंक खाता व डीबीटी सत्यापन">बैंक खाता व डीबीटी (PFMS) सत्यापन</option>
+                            </select>
+                        </div>
+                        <button type="submit" id="btn-sakhi-submit" class="w-full py-2 bg-[#b45309] hover:bg-[#92400e] text-white font-stamp font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                            <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                            <span>कला सखी दीदी को घर बुलाएं (Request Sakhi Visit)</span>
+                        </button>
+                    </form>
+
+                    <div id="sakhi-feedback-box" class="hidden p-3 bg-[#fffcf7] rounded-xl border border-[#b45309] text-xs font-stamp text-[#2b2d42]">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Section 2: Join Bulk Raw Material Pool -->
+                <div class="p-5 bg-[#ecfdf5] rounded-2xl border-2 border-[#a7f3d0] space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-[#047857] text-white flex items-center justify-center text-xs font-bold">२</span>
+                            <h4 class="font-vintage text-lg text-[#2b2d42]">सामूहिक थोक कच्चा माल पूल (SFURTI Raw Material Pool)</h4>
+                        </div>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-stamp font-bold bg-[#d1fae5] text-[#065f46]">
+                            ३६% सीधी रियायत
+                        </span>
+                    </div>
+                    <p class="text-xs text-[#6c757d] leading-relaxed">
+                        सिल्क धागा, प्राकृतिक रंग और शीशम की लकड़ी SFURTI सीएफसी से सामूहिक आर्डर करके थोक दर पर प्राप्त करें।
+                    </p>
+
+                    <form onsubmit="handleBulkOrderSubmit(event)" class="space-y-2.5 pt-1">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-stamp">
+                            <div>
+                                <label class="block text-[10px] font-bold text-[#6c757d] mb-1">कच्चा माल का प्रकार:</label>
+                                <select id="shg-material-select" onchange="updateBulkSavingsPreview()" class="w-full px-3 py-1.5 rounded-xl border border-[#a7f3d0] bg-white text-xs text-[#2b2d42]">
+                                    <option value="Tussar Silk Reeling Pack" data-pool="960" data-market="1500">तुषार सिल्क रीलिंग पैक (Tussar Silk)</option>
+                                    <option value="Natural Herbal Dyes Set" data-pool="450" data-market="750">प्राकृतिक वानस्पतिक रंग सेट (Natural Herbal Dyes)</option>
+                                    <option value="Seasoned Sheesham Wood Block" data-pool="320" data-market="500">काष्ठ नक्काशी शीशम ब्लॉक (Sheesham Wood)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-[#6c757d] mb-1">मात्रा (किग्रा / सेट्स):</label>
+                                <input type="number" id="shg-material-qty" value="5" min="1" max="50" oninput="updateBulkSavingsPreview()" class="w-full px-3 py-1.5 rounded-xl border border-[#a7f3d0] bg-white text-xs text-[#2b2d42] font-semibold" required>
+                            </div>
+                        </div>
+
+                        <!-- Price calculation preview -->
+                        <div class="p-2.5 bg-white rounded-xl border border-[#a7f3d0] text-xs font-stamp flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-[#6c757d] block">रियायती पूल दर:</span>
+                                <b class="text-[#047857] text-sm" id="bulk-calc-pool">₹4,800</b>
+                                <span class="text-[10px] text-[#9ca3af] line-through ml-1" id="bulk-calc-market">₹7,500</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-[#065f46] block font-bold">आपकी कुल बचत:</span>
+                                <b class="text-sm font-bold text-[#047857]" id="bulk-calc-savings">₹2,700 (36% बचत)</b>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="btn-bulk-submit" class="w-full py-2 bg-[#047857] hover:bg-[#065f46] text-white font-stamp font-bold text-xs rounded-xl shadow transition flex items-center justify-center gap-1.5">
+                            <i data-lucide="package-check" class="w-4 h-4"></i>
+                            <span>सामूहिक खरीद पूल में शामिल हों (Join Raw Material Pool)</span>
+                        </button>
+                    </form>
+
+                    <div id="bulk-feedback-box" class="hidden p-3 bg-[#fffcf7] rounded-xl border border-[#047857] text-xs font-stamp text-[#2b2d42]">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Section 3: Revolving Tool Fund -->
+                <div class="p-4 bg-[#eff6ff] rounded-2xl border border-[#bfdbfe] flex items-center justify-between">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-[#1e3a8a] text-white flex items-center justify-center text-xs font-bold">३</span>
+                            <h4 class="font-vintage text-base text-[#1e3a8a]">०% ब्याज रिवाल्विंग टूल फंड (PM-AJAY Revolving Fund)</h4>
+                        </div>
+                        <p class="text-xs text-[#6c757d] mt-1">
+                            करघा या चाक मरम्मत के लिए ₹5,000 तक की तत्काल सहायता उपलब्ध। उत्पाद बिकने पर बिना ब्याज वापस करें।
+                        </p>
+                    </div>
+                    <div class="text-right pl-3">
+                        <span class="text-[10px] text-[#6c757d] block">उपलब्ध फंड:</span>
+                        <b class="text-sm text-[#1e3a8a] font-mono">₹45,000</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NON-VISHWAKARMA REGISTRATION MODAL -->
+    
