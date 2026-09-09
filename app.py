@@ -27,22 +27,42 @@ app = FastAPI(
 
 # Base directories
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+IS_VERCEL = bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")) or not os.access(BASE_DIR, os.W_OK)
+
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
-UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
 
-os.makedirs(STATIC_DIR, exist_ok=True)
-os.makedirs(TEMPLATES_DIR, exist_ok=True)
-os.makedirs(UPLOADS_DIR, exist_ok=True)
-QRCODES_DIR = os.path.join(STATIC_DIR, "qrcodes")
-os.makedirs(QRCODES_DIR, exist_ok=True)
-AUDIO_DIR = os.path.join(STATIC_DIR, "audio")
-os.makedirs(AUDIO_DIR, exist_ok=True)
+if IS_VERCEL:
+    TMP_DIR = os.environ.get("TMPDIR", "/tmp")
+    UPLOADS_DIR = os.path.join(TMP_DIR, "uploads")
+    QRCODES_DIR = os.path.join(TMP_DIR, "qrcodes")
+    AUDIO_DIR = os.path.join(TMP_DIR, "audio")
+else:
+    UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
+    QRCODES_DIR = os.path.join(STATIC_DIR, "qrcodes")
+    AUDIO_DIR = os.path.join(STATIC_DIR, "audio")
 
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
-app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
+for d in [UPLOADS_DIR, QRCODES_DIR, AUDIO_DIR]:
+    try:
+        os.makedirs(d, exist_ok=True)
+    except Exception:
+        pass
+
+if os.path.exists(STATIC_DIR):
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+if os.path.exists(UPLOADS_DIR):
+    app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    favicon_path = os.path.join(STATIC_DIR, "favicon.ico")
+    if os.path.exists(favicon_path):
+        return FileResponse(favicon_path)
+    return JSONResponse(status_code=204, content={})
+
 
 # Sample Seed Artisan Products with Human-Touch Data
 PRODUCTS_DB = [
@@ -1986,6 +2006,12 @@ async def predict_fair_price(
             "Department of Posts (India Post) Speed Post Weight Slab Tariffs"
         ]
     })
+
+try:
+    from mangum import Mangum
+    handler = Mangum(app)
+except Exception:
+    handler = app
 
 if __name__ == "__main__":
     import uvicorn

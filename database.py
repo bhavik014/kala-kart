@@ -10,15 +10,34 @@ import json
 import os
 import time
 import uuid
+import shutil
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "kalakart.db")
+IS_VERCEL = bool(os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")) or not os.access(BASE_DIR, os.W_OK)
+
+if IS_VERCEL:
+    TMP_DIR = os.environ.get("TMPDIR", "/tmp")
+    DB_PATH = os.path.join(TMP_DIR, "kalakart.db")
+    ORIG_DB = os.path.join(BASE_DIR, "kalakart.db")
+    if not os.path.exists(DB_PATH) and os.path.exists(ORIG_DB):
+        try:
+            shutil.copy2(ORIG_DB, DB_PATH)
+        except Exception as e:
+            print(f"Notice: Failed copying kalakart.db to /tmp: {e}")
+else:
+    DB_PATH = os.path.join(BASE_DIR, "kalakart.db")
 
 def get_connection():
     """Returns a thread-safe connection to the SQLite database with row_factory."""
     conn = sqlite3.connect(DB_PATH, timeout=20.0)
-    conn.execute("PRAGMA journal_mode=WAL;")
-    conn.execute("PRAGMA synchronous=NORMAL;")
+    try:
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+    except Exception:
+        try:
+            conn.execute("PRAGMA journal_mode=DELETE;")
+        except Exception:
+            pass
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -1231,4 +1250,7 @@ def request_kala_sakhi_visit(artisan_name, village_pincode, assistance_type="ड
     }
 
 # Initialize database on module load
-init_db()
+try:
+    init_db()
+except Exception as e:
+    print(f"Notice: init_db safe initialization fallback: {e}")
